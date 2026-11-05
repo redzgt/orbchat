@@ -1,91 +1,33 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-04T19:35:20.1155468-05:00",
+  "generatedAt": "2026-11-05T06:23:02.0789290-05:00",
   "title": "Design System: OrbChat",
   "extensions": {
     "colorMeta": {
-      "page": {
-        "role": "neutral",
-        "displayName": "Deep Space",
-        "canonical": "#06081f",
-        "tonalRamp": ["oklch(15% 0.04 275)", "oklch(25% 0.04 275)", "oklch(35% 0.04 275)", "oklch(47% 0.04 275)", "oklch(59% 0.04 275)", "oklch(71% 0.04 275)", "oklch(83% 0.04 275)", "oklch(95% 0.04 275)"]
-      },
-      "surface": {
-        "role": "neutral",
-        "displayName": "Room Navy",
-        "canonical": "#0d1236",
-        "tonalRamp": ["oklch(15% 0.07 275)", "oklch(25% 0.07 275)", "oklch(35% 0.07 275)", "oklch(47% 0.07 275)", "oklch(59% 0.07 275)", "oklch(71% 0.07 275)", "oklch(83% 0.07 275)", "oklch(95% 0.07 275)"]
-      },
-      "surface-raised": {
-        "role": "neutral",
-        "displayName": "Raised Navy",
-        "canonical": "#121b4e",
-        "tonalRamp": ["oklch(15% 0.10 275)", "oklch(25% 0.10 275)", "oklch(35% 0.10 275)", "oklch(47% 0.10 275)", "oklch(59% 0.10 275)", "oklch(71% 0.10 275)", "oklch(83% 0.10 275)", "oklch(95% 0.10 275)"]
-      },
-      "field": {
-        "role": "neutral",
-        "displayName": "Input Navy",
-        "canonical": "#080c28",
-        "tonalRamp": ["oklch(15% 0.055 275)", "oklch(25% 0.055 275)", "oklch(35% 0.055 275)", "oklch(47% 0.055 275)", "oklch(59% 0.055 275)", "oklch(71% 0.055 275)", "oklch(83% 0.055 275)", "oklch(95% 0.055 275)"]
-      },
-      "blue": {
-        "role": "primary",
-        "displayName": "Orb Electric Blue",
-        "canonical": "#2f8dff",
-        "tonalRamp": ["oklch(15% 0.20 252)", "oklch(25% 0.20 252)", "oklch(35% 0.20 252)", "oklch(47% 0.20 252)", "oklch(59% 0.20 252)", "oklch(71% 0.20 252)", "oklch(83% 0.20 252)", "oklch(95% 0.20 252)"]
-      },
-      "blue-bright": {
-        "role": "primary",
-        "displayName": "Signal Blue",
-        "canonical": "#54b8ff",
-        "tonalRamp": ["oklch(15% 0.15 235)", "oklch(25% 0.15 235)", "oklch(35% 0.15 235)", "oklch(47% 0.15 235)", "oklch(59% 0.15 235)", "oklch(71% 0.15 235)", "oklch(83% 0.15 235)", "oklch(95% 0.15 235)"]
-      },
-      "purple": {
-        "role": "secondary",
-        "displayName": "Arc Purple",
-        "canonical": "#7766ff",
-        "tonalRamp": ["oklch(15% 0.19 292)", "oklch(25% 0.19 292)", "oklch(35% 0.19 292)", "oklch(47% 0.19 292)", "oklch(59% 0.19 292)", "oklch(71% 0.19 292)", "oklch(83% 0.19 292)", "oklch(95% 0.19 292)"]
-      },
-      "muted": {
-        "role": "neutral",
-        "displayName": "Cloud Blue",
-        "canonical": "#aebce8",
-        "tonalRamp": ["oklch(15% 0.06 270)", "oklch(25% 0.06 270)", "oklch(35% 0.06 270)", "oklch(47% 0.06 270)", "oklch(59% 0.06 270)", "oklch(71% 0.06 270)", "oklch(83% 0.06 270)", "oklch(95% 0.06 270)"]
-      },
-      "danger": {
-        "role": "tertiary",
-        "displayName": "Alert Rose",
-        "canonical": "#ff8fa5",
-        "tonalRamp": ["oklch(15% 0.13 12)", "oklch(25% 0.13 12)", "oklch(35% 0.13 12)", "oklch(47% 0.13 12)", "oklch(59% 0.13 12)", "oklch(71% 0.13 12)", "oklch(83% 0.13 12)", "oklch(95% 0.13 12)"]
-      },
-      "success": {
-        "role": "tertiary",
-        "displayName": "Connected Mint",
-        "canonical": "#55e0ad",
-        "tonalRamp": ["oklch(15% 0.13 163)", "oklch(25% 0.13 163)", "oklch(35% 0.13 163)", "oklch(47% 0.13 163)", "oklch(59% 0.13 163)", "oklch(71% 0.13 163)", "oklch(83% 0.13 163)", "oklch(95% 0.13 163)"]
-      },
-      "focus": {
-        "role": "tertiary",
-        "displayName": "Focus Sky",
-        "canonical": "#82c9ff",
-        "tonalRamp": ["oklch(15% 0.11 240)", "oklch(25% 0.11 240)", "oklch(35% 0.11 240)", "oklch(47% 0.11 240)", "oklch(59% 0.11 240)", "oklch(71% 0.11 240)", "oklch(83% 0.11 240)", "oklch(95% 0.11 240)"]
-      }
+      "page": { "role": "neutral", "displayName": "Continuous Navy", "canonical": "#06081f", "tonalRamp": ["oklch(15% 0.04 275)", "oklch(25% 0.04 275)", "oklch(35% 0.04 275)", "oklch(47% 0.04 275)", "oklch(59% 0.04 275)", "oklch(71% 0.04 275)", "oklch(83% 0.04 275)", "oklch(95% 0.04 275)"] },
+      "line": { "role": "neutral", "displayName": "Hairline Blue", "canonical": "#24356f", "tonalRamp": ["oklch(15% 0.10 270)", "oklch(25% 0.10 270)", "oklch(35% 0.10 270)", "oklch(47% 0.10 270)", "oklch(59% 0.10 270)", "oklch(71% 0.10 270)", "oklch(83% 0.10 270)", "oklch(95% 0.10 270)"] },
+      "line-strong": { "role": "neutral", "displayName": "Active Hairline", "canonical": "#3653b3", "tonalRamp": ["oklch(15% 0.16 270)", "oklch(25% 0.16 270)", "oklch(35% 0.16 270)", "oklch(47% 0.16 270)", "oklch(59% 0.16 270)", "oklch(71% 0.16 270)", "oklch(83% 0.16 270)", "oklch(95% 0.16 270)"] },
+      "action": { "role": "primary", "displayName": "Action Blue", "canonical": "#2563eb", "tonalRamp": ["oklch(15% 0.22 260)", "oklch(25% 0.22 260)", "oklch(35% 0.22 260)", "oklch(47% 0.22 260)", "oklch(59% 0.22 260)", "oklch(71% 0.22 260)", "oklch(83% 0.22 260)", "oklch(95% 0.22 260)"] },
+      "action-hover": { "role": "primary", "displayName": "Pressed Blue", "canonical": "#1d4ed8", "tonalRamp": ["oklch(15% 0.21 262)", "oklch(25% 0.21 262)", "oklch(35% 0.21 262)", "oklch(47% 0.21 262)", "oklch(59% 0.21 262)", "oklch(71% 0.21 262)", "oklch(83% 0.21 262)", "oklch(95% 0.21 262)"] },
+      "signal": { "role": "primary", "displayName": "Signal Sky", "canonical": "#66c2ff", "tonalRamp": ["oklch(15% 0.15 235)", "oklch(25% 0.15 235)", "oklch(35% 0.15 235)", "oklch(47% 0.15 235)", "oklch(59% 0.15 235)", "oklch(71% 0.15 235)", "oklch(83% 0.15 235)", "oklch(95% 0.15 235)"] },
+      "text": { "role": "neutral", "displayName": "Starlight", "canonical": "#f7f8ff", "tonalRamp": ["oklch(15% 0.02 270)", "oklch(25% 0.02 270)", "oklch(35% 0.02 270)", "oklch(47% 0.02 270)", "oklch(59% 0.02 270)", "oklch(71% 0.02 270)", "oklch(83% 0.02 270)", "oklch(95% 0.02 270)"] },
+      "label": { "role": "neutral", "displayName": "Cool Label", "canonical": "#dce4ff", "tonalRamp": ["oklch(15% 0.04 270)", "oklch(25% 0.04 270)", "oklch(35% 0.04 270)", "oklch(47% 0.04 270)", "oklch(59% 0.04 270)", "oklch(71% 0.04 270)", "oklch(83% 0.04 270)", "oklch(95% 0.04 270)"] },
+      "muted": { "role": "neutral", "displayName": "Cloud Blue", "canonical": "#aebce8", "tonalRamp": ["oklch(15% 0.06 270)", "oklch(25% 0.06 270)", "oklch(35% 0.06 270)", "oklch(47% 0.06 270)", "oklch(59% 0.06 270)", "oklch(71% 0.06 270)", "oklch(83% 0.06 270)", "oklch(95% 0.06 270)"] },
+      "placeholder": { "role": "neutral", "displayName": "Quiet Placeholder", "canonical": "#8c9bc9", "tonalRamp": ["oklch(15% 0.07 270)", "oklch(25% 0.07 270)", "oklch(35% 0.07 270)", "oklch(47% 0.07 270)", "oklch(59% 0.07 270)", "oklch(71% 0.07 270)", "oklch(83% 0.07 270)", "oklch(95% 0.07 270)"] },
+      "danger": { "role": "tertiary", "displayName": "Recovery Rose", "canonical": "#ff9caf", "tonalRamp": ["oklch(15% 0.13 12)", "oklch(25% 0.13 12)", "oklch(35% 0.13 12)", "oklch(47% 0.13 12)", "oklch(59% 0.13 12)", "oklch(71% 0.13 12)", "oklch(83% 0.13 12)", "oklch(95% 0.13 12)"] },
+      "focus": { "role": "tertiary", "displayName": "Focus Sky", "canonical": "#94d5ff", "tonalRamp": ["oklch(15% 0.11 240)", "oklch(25% 0.11 240)", "oklch(35% 0.11 240)", "oklch(47% 0.11 240)", "oklch(59% 0.11 240)", "oklch(71% 0.11 240)", "oklch(83% 0.11 240)", "oklch(95% 0.11 240)"] },
+      "action-disabled": { "role": "neutral", "displayName": "Disabled Blue", "canonical": "#24479d", "tonalRamp": ["oklch(15% 0.14 265)", "oklch(25% 0.14 265)", "oklch(35% 0.14 265)", "oklch(47% 0.14 265)", "oklch(59% 0.14 265)", "oklch(71% 0.14 265)", "oklch(83% 0.14 265)", "oklch(95% 0.14 265)"] }
     },
     "typographyMeta": {
-      "headline": { "displayName": "Compact Headline", "purpose": "States the current room task once per view." },
-      "body": { "displayName": "Utility Body", "purpose": "Explanatory copy and participant messages." },
-      "label": { "displayName": "Action Label", "purpose": "Controls, fields, statuses, codes, and validation." }
+      "body": { "displayName": "Utility Body", "purpose": "Inputs and participant messages." },
+      "label": { "displayName": "Compact Label", "purpose": "Field labels, actions, statuses, authors, and system text." }
     },
-    "shadows": [
-      { "name": "widget-float", "value": "0 22px 52px rgba(0, 0, 0, .34)", "purpose": "Separates the centered desktop widget from the page canvas." },
-      { "name": "action-lift", "value": "0 7px 20px rgba(0, 0, 0, .25)", "purpose": "Reinforces the primary room action." },
-      { "name": "field-focus", "value": "0 4px 16px rgba(0, 0, 0, .22)", "purpose": "Supports the active input state." }
-    ],
+    "shadows": [],
     "motion": [
-      { "name": "state-change", "value": "150ms ease", "purpose": "Default transition for border, background, filter, transform, and shadow changes; collapse to 0.01ms for reduced motion." }
+      { "name": "state-change", "value": "150ms ease", "purpose": "Background, border, and active-position feedback; reduced to 0.01ms when reduced motion is requested." }
     ],
     "breakpoints": [
-      { "name": "widget-full-viewport", "value": "430px" }
+      { "name": "mobile-top-led", "value": "430px" }
     ]
   },
   "components": [
@@ -95,78 +37,85 @@
       "refersTo": "button-primary",
       "description": "The full-width action that creates a room.",
       "html": "<button class=\"ds-btn-primary\">Create a room</button>",
-      "css": ".ds-btn-primary { width: 100%; min-height: 44px; border: 0; border-radius: 12px; background: linear-gradient(115deg, #2f8dff, #7766ff); box-shadow: 0 7px 20px rgba(0,0,0,.25); color: #f7f8ff; font: 800 13px \"Nunito\", ui-sans-serif, system-ui, sans-serif; cursor: pointer; transition: transform 150ms ease, filter 150ms ease, box-shadow 150ms ease; } .ds-btn-primary:hover { filter: brightness(1.1); } .ds-btn-primary:focus-visible { outline: 3px solid #82c9ff; outline-offset: 3px; } .ds-btn-primary:active { transform: translateY(1px); }"
+      "css": ".ds-btn-primary { width: 100%; min-height: 46px; border: 0; border-radius: 10px; background: #2563eb; color: #fff; font: 800 12px \"Nunito\", ui-sans-serif, system-ui, sans-serif; cursor: pointer; transition: background 150ms ease, transform 150ms ease; } .ds-btn-primary:hover { background: #1d4ed8; } .ds-btn-primary:focus-visible { outline: 3px solid #94d5ff; outline-offset: 3px; } .ds-btn-primary:active { transform: translateY(1px); } .ds-btn-primary:disabled { cursor: wait; background: #24479d; color: #dce4ff; }"
     },
     {
-      "name": "Secondary Button",
+      "name": "Compact Action",
       "kind": "button",
-      "refersTo": "button-secondary",
-      "description": "A compact companion action for joining or sending.",
-      "html": "<button class=\"ds-btn-secondary\">Enter</button>",
-      "css": ".ds-btn-secondary { min-height: 44px; padding: 0 17px; border: 0; border-radius: 12px; background: #294bc2; color: #f7f8ff; font: 800 13px \"Nunito\", ui-sans-serif, system-ui, sans-serif; cursor: pointer; transition: transform 150ms ease, filter 150ms ease; } .ds-btn-secondary:hover { filter: brightness(1.1); } .ds-btn-secondary:focus-visible { outline: 3px solid #82c9ff; outline-offset: 3px; } .ds-btn-secondary:active { transform: translateY(1px); }"
+      "refersTo": "button-compact",
+      "description": "The intrinsic-width companion action used for Enter and Send.",
+      "html": "<button class=\"ds-btn-compact\">Enter</button>",
+      "css": ".ds-btn-compact { min-height: 46px; padding: 0 19px; border: 0; border-radius: 10px; background: #2563eb; color: #fff; font: 800 12px \"Nunito\", ui-sans-serif, system-ui, sans-serif; cursor: pointer; transition: background 150ms ease, transform 150ms ease; } .ds-btn-compact:hover { background: #1d4ed8; } .ds-btn-compact:focus-visible { outline: 3px solid #94d5ff; outline-offset: 3px; } .ds-btn-compact:active { transform: translateY(1px); } .ds-btn-compact:disabled { cursor: wait; background: #24479d; color: #dce4ff; }"
     },
     {
-      "name": "Text Field",
+      "name": "Underlined Field",
       "kind": "input",
-      "refersTo": "input",
-      "description": "The default recessed field for names and messages.",
+      "refersTo": "input-underline",
+      "description": "The transparent field used for display names and messages.",
       "html": "<label class=\"ds-field-label\" for=\"ds-name\">Display name</label><input class=\"ds-input\" id=\"ds-name\" placeholder=\"How others will see you\">",
-      "css": ".ds-field-label { display: block; margin: 0 0 7px; color: #dbe4ff; font: 800 12px \"Nunito\", ui-sans-serif, system-ui, sans-serif; } .ds-input { width: 100%; height: 44px; padding: 0 13px; border: 1px solid #1a275f; border-radius: 12px; outline: none; background: #080c28; color: #f7f8ff; font: 500 14px \"Nunito\", ui-sans-serif, system-ui, sans-serif; transition: border-color 150ms ease, box-shadow 150ms ease, background 150ms ease; } .ds-input:hover { border-color: #263a8c; } .ds-input:focus { border-color: #82c9ff; background: #0a1032; box-shadow: 0 4px 16px rgba(0,0,0,.22); } .ds-input::placeholder { color: #7f8fc3; opacity: 1; }"
+      "css": ".ds-field-label { display: block; margin: 0 0 6px; color: #dce4ff; font: 800 12px \"Nunito\", ui-sans-serif, system-ui, sans-serif; } .ds-input { width: 100%; height: 48px; padding: 0 2px; border: 0; border-bottom: 1px solid #24356f; border-radius: 0; outline: none; background: transparent; color: #f7f8ff; font: 500 15px \"Nunito\", ui-sans-serif, system-ui, sans-serif; transition: border-color 150ms ease; } .ds-input::placeholder { color: #8c9bc9; opacity: 1; } .ds-input:hover { border-color: #3653b3; } .ds-input:focus { border-color: #94d5ff; }"
     },
     {
       "name": "Room Code Field",
       "kind": "input",
-      "refersTo": "input",
-      "description": "The code-first entry field with shareable character treatment.",
+      "refersTo": "input-underline",
+      "description": "The underlined room field with shareable code treatment.",
       "html": "<input class=\"ds-code-input\" value=\"ABC123\" aria-label=\"Room code\">",
-      "css": ".ds-code-input { width: 100%; height: 44px; padding: 0 13px; border: 1px solid #1a275f; border-radius: 12px; outline: none; background: #080c28; color: #f7f8ff; font: 500 14px \"Nunito\", ui-sans-serif, system-ui, sans-serif; font-variant-numeric: tabular-nums; letter-spacing: .16em; text-transform: uppercase; transition: border-color 150ms ease, box-shadow 150ms ease, background 150ms ease; } .ds-code-input:hover { border-color: #263a8c; } .ds-code-input:focus { border-color: #82c9ff; background: #0a1032; box-shadow: 0 4px 16px rgba(0,0,0,.22); }"
+      "css": ".ds-code-input { width: 100%; height: 48px; padding: 0 2px; border: 0; border-bottom: 1px solid #24356f; border-radius: 0; outline: none; background: transparent; color: #f7f8ff; font: 500 15px \"Nunito\", ui-sans-serif, system-ui, sans-serif; font-variant-numeric: tabular-nums; letter-spacing: .16em; text-transform: uppercase; transition: border-color 150ms ease; } .ds-code-input:hover { border-color: #3653b3; } .ds-code-input:focus { border-color: #94d5ff; }"
     },
     {
-      "name": "Connection Pill",
-      "kind": "chip",
-      "refersTo": "status-pill",
-      "description": "A compact connection state with a semantic dot.",
-      "html": "<span class=\"ds-status-pill\"><span class=\"ds-status-dot\"></span>Connected</span>",
-      "css": ".ds-status-pill { display: inline-flex; min-height: 28px; align-items: center; gap: 7px; padding: 0 10px; border-radius: 999px; background: #090e2e; color: #aebce8; font: 800 11px \"Nunito\", ui-sans-serif, system-ui, sans-serif; } .ds-status-dot { width: 7px; height: 7px; border-radius: 50%; background: #55e0ad; } .ds-status-pill:hover { background: #0d1236; } .ds-status-pill:focus-visible { outline: 3px solid #82c9ff; outline-offset: 3px; }"
+      "name": "Entry Divider",
+      "kind": "custom",
+      "description": "A ruled text divider separating create and enter paths without a container.",
+      "html": "<div class=\"ds-divider\">or enter a code</div>",
+      "css": ".ds-divider { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 14px; color: #aebce8; font: 800 12px \"Nunito\", ui-sans-serif, system-ui, sans-serif; letter-spacing: .1em; text-transform: uppercase; } .ds-divider::before, .ds-divider::after { height: 1px; background: #24356f; content: \"\"; }"
     },
     {
-      "name": "Message Bubble",
-      "kind": "card",
-      "description": "A participant message inside the recessed message well.",
+      "name": "Message Row",
+      "kind": "custom",
+      "description": "A participant message expressed as a hairline-separated row, never a bubble.",
       "html": "<p class=\"ds-message\"><strong>Alex</strong>Room is ready when you are.</p>",
-      "css": ".ds-message { margin: 0; padding: 10px 12px; border-radius: 12px; background: #121b4e; color: #eaf0ff; overflow-wrap: anywhere; font: 500 13px/1.45 \"Nunito\", ui-sans-serif, system-ui, sans-serif; } .ds-message strong { display: block; margin-bottom: 2px; color: #54b8ff; font-size: 11px; font-weight: 800; } .ds-message:hover { filter: brightness(1.06); } .ds-message:focus-visible { outline: 3px solid #82c9ff; outline-offset: 3px; }"
+      "css": ".ds-message { margin: 0; padding: 13px 2px 14px; border-bottom: 1px solid #24356f; color: #f7f8ff; overflow-wrap: anywhere; font: 500 15px/1.5 \"Nunito\", ui-sans-serif, system-ui, sans-serif; } .ds-message strong { display: block; margin-bottom: 2px; color: #66c2ff; font-size: 12px; font-weight: 800; }"
+    },
+    {
+      "name": "Connection Recovery",
+      "kind": "custom",
+      "description": "Plain recovery copy shown after connection loss; it is never a badge or panel.",
+      "html": "<p class=\"ds-recovery\" role=\"status\">Connection lost. Refresh the page to rejoin.</p>",
+      "css": ".ds-recovery { margin: 12px 0 0; color: #ff9caf; font: 700 12px/1.45 \"Nunito\", ui-sans-serif, system-ui, sans-serif; }"
     }
   ],
   "narrative": {
-    "northStar": "The Electric Room Key",
-    "overview": "OrbChat is one compact path into a temporary room. Its visual system makes the experience feel immediate and contained: deep navy surfaces create a private enclosure, electric blue provides structure and action, and the supplied full OrbChat wordmark establishes its place in the Orb Games family.\n\nThe system is a compact embedded utility, not a dashboard. Nunito, rounded controls, short labels, and dense but breathable spacing keep it friendly without weakening its code-first purpose. The same visual language must remain complete when the widget expands to a full mobile viewport.",
+    "northStar": "The Open Room Line",
+    "overview": "OrbChat is a free-standing room utility, not a branded destination or miniature app shell. Room entry and conversation sit directly on a solid deep-navy page; open spacing and hairline rules provide all necessary structure. The interface should feel immediate, quiet, and native to Orb Games without importing its site chrome.\n\nThe system is code-first and deliberately reduced. Nunito keeps the utility approachable, accessible solid blue actions establish the path forward, and every visible element serves the short story: name yourself, create or enter a room, then exchange temporary messages.",
     "keyCharacteristics": [
-      "Deep navy surfaces with electric-blue structure and restrained purple energy.",
-      "Compact, centered composition built around one clear task path.",
-      "Heavy, rounded Nunito typography with small, legible status labels.",
-      "Rounded controls and containers with explicit focus and connection states.",
-      "Full OrbChat wordmark as the primary identity asset."
+      "One free-standing control column, capped at 500px.",
+      "Solid deep-navy canvas with no gradients, cards, or ornamental containers.",
+      "Accessible solid blue actions and bright-blue informational emphasis.",
+      "Transparent underlined fields and hairline conversation structure.",
+      "No visible logo, heading, connection badge, or repeated status decoration."
     ],
     "rules": [
-      { "name": "The Electric Structure Rule", "body": "Blue marks action, focus, and essential room information; it is not ambient decoration.", "section": "colors" },
-      { "name": "The Navy Layer Rule", "body": "Separate regions by moving between the established navy surfaces before adding borders or shadows.", "section": "colors" },
-      { "name": "The One Family Rule", "body": "Use Nunito throughout; hierarchy comes from weight, size, tracking, and case rather than a second typeface.", "section": "typography" },
-      { "name": "The Code Clarity Rule", "body": "Room codes use uppercase tabular characters with generous tracking so every character can be shared and checked quickly.", "section": "typography" },
-      { "name": "The Tonal-First Rule", "body": "Establish hierarchy with navy surface changes; shadow supports a layer but never defines it alone.", "section": "elevation" }
+      { "name": "The One Canvas Rule", "body": "Keep the page and utility on Continuous Navy; never introduce a second surface to imply a card, well, header, or nested shell.", "section": "colors" },
+      { "name": "The Action Contrast Rule", "body": "Enabled actions use Action Blue and hover to Pressed Blue; Signal Sky is informational, not an alternate button color.", "section": "colors" },
+      { "name": "The No Headline Rule", "body": "The first viewport begins with the display-name field; do not add a title, logo, wordmark, tagline, or introductory copy above it.", "section": "typography" },
+      { "name": "The Code Clarity Rule", "body": "Room codes remain uppercase, tabular, and widely tracked so they can be read and shared without ambiguity.", "section": "typography" },
+      { "name": "The Hairlines-Only Rule", "body": "When separation is required, use open space or a one-pixel line; never solve hierarchy with a card, background patch, or shadow.", "section": "elevation" },
+      { "name": "The Enclosure Has Meaning Rule", "body": "A filled rounded shape means “action.” Do not reuse it for identity, status, messages, sections, or decoration.", "section": "shapes" }
     ],
     "dos": [
-      "Do keep room entry and messaging inside a single compact path with the most important action visually dominant.",
-      "Do use the established navy layers before reaching for extra borders or shadows.",
-      "Do reserve electric blue for action, focus, and essential room information.",
-      "Do preserve clear hover, focus, active, connected, connecting, disconnected, validation, and disabled states.",
-      "Do let the widget become the full page at narrow mobile widths."
+      "Do keep entry and conversation directly on Continuous Navy in one 500px column.",
+      "Do use Action Blue and Pressed Blue for enabled action states with explicit Focus Sky keyboard outlines.",
+      "Do use spacing and one-pixel lines to organize fields, dividers, messages, and the conversation viewport.",
+      "Do keep connection recovery visible as plain text and disable the entire composer when disconnected.",
+      "Do preserve readable mobile padding, touch targets, and reduced-motion behavior."
     ],
     "donts": [
-      "Don't add dashboard chrome, navigation, onboarding panels, or decorative modules around the utility.",
-      "Don't replace the supplied full OrbChat wordmark with plain text, a cropped symbol, or a new logo treatment.",
-      "Don't introduce sharp rectangular controls, pale surfaces, or typefaces outside the Nunito system.",
-      "Don't use purple as an independent semantic action or status color; it supports the primary action gradient.",
-      "Don't use shadow as the only cue separating nested navy surfaces."
+      "Don't add a logo, wordmark, title, branded header, intro copy, or navigation chrome.",
+      "Don't add a gradient, outer card, boxed message well, message bubbles, raised surface, or shadow.",
+      "Don't add Ready, Connected, Connecting, or Disconnected badges; routine state stays visually silent.",
+      "Don't use ornamental containers, repeated status decoration, or shipping raster artwork.",
+      "Don't introduce a second font, decorative display type, or a competing accent hue."
     ]
   }
 }

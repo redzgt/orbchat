@@ -1,31 +1,24 @@
 ---
 name: OrbChat
-description: A compact, electric-blue room utility in the Orb Games visual world.
+description: A distilled, code-first room utility on the Orb Games deep-navy canvas.
 colors:
   page: "#06081f"
-  surface: "#0d1236"
-  surface-raised: "#121b4e"
-  field: "#080c28"
-  line: "#263a8c"
-  line-soft: "#1a275f"
-  blue: "#2f8dff"
-  blue-bright: "#54b8ff"
-  purple: "#7766ff"
+  line: "#24356f"
+  line-strong: "#3653b3"
+  action: "#2563eb"
+  action-hover: "#1d4ed8"
+  signal: "#66c2ff"
   text: "#f7f8ff"
+  label: "#dce4ff"
   muted: "#aebce8"
-  danger: "#ff8fa5"
-  success: "#55e0ad"
-  focus: "#82c9ff"
+  placeholder: "#8c9bc9"
+  danger: "#ff9caf"
+  focus: "#94d5ff"
+  action-disabled: "#24479d"
 typography:
-  headline:
-    fontFamily: '"Nunito", ui-sans-serif, system-ui, sans-serif'
-    fontSize: "clamp(21px, 5vw, 25px)"
-    fontWeight: 800
-    lineHeight: 1.15
-    letterSpacing: "-0.025em"
   body:
     fontFamily: '"Nunito", ui-sans-serif, system-ui, sans-serif'
-    fontSize: "13px"
+    fontSize: "15px"
     fontWeight: 500
     lineHeight: 1.5
   label:
@@ -34,201 +27,185 @@ typography:
     fontWeight: 800
     lineHeight: 1.45
 rounded:
-  control: "12px"
-  message-well: "14px"
-  widget: "16px"
-  pill: "999px"
+  action: "10px"
 spacing:
-  xs: "7px"
-  sm: "9px"
-  md: "12px"
-  lg: "16px"
-  xl: "22px"
+  hairline-inset: "2px"
+  compact: "6px"
+  control-gap: "16px"
+  section: "24px"
 components:
   button-primary:
-    backgroundColor: "{colors.blue}"
-    textColor: "{colors.text}"
+    backgroundColor: "{colors.action}"
+    textColor: "#ffffff"
     typography: "{typography.label}"
-    rounded: "{rounded.control}"
-    height: "44px"
+    rounded: "{rounded.action}"
+    height: "46px"
     width: "100%"
-  button-secondary:
-    backgroundColor: "#294bc2"
-    textColor: "{colors.text}"
+  button-primary-hover:
+    backgroundColor: "{colors.action-hover}"
+    textColor: "#ffffff"
     typography: "{typography.label}"
-    rounded: "{rounded.control}"
-    padding: "0 17px"
-    height: "44px"
-  input:
-    backgroundColor: "{colors.field}"
+    rounded: "{rounded.action}"
+    height: "46px"
+  button-compact:
+    backgroundColor: "{colors.action}"
+    textColor: "#ffffff"
+    typography: "{typography.label}"
+    rounded: "{rounded.action}"
+    padding: "0 19px"
+    height: "46px"
+  input-underline:
+    backgroundColor: "transparent"
     textColor: "{colors.text}"
     typography: "{typography.body}"
-    rounded: "{rounded.control}"
-    padding: "0 13px"
-    height: "44px"
-  status-pill:
-    backgroundColor: "{colors.field}"
-    textColor: "{colors.muted}"
-    typography: "{typography.label}"
-    rounded: "{rounded.pill}"
-    padding: "0 10px"
-    height: "28px"
+    rounded: "0"
+    padding: "0 2px"
+    height: "48px"
 ---
 
 # Design System: OrbChat
 
 ## Overview
 
-**Creative North Star: "The Electric Room Key"**
+**Creative North Star: "The Open Room Line"**
 
-OrbChat is one compact path into a temporary room. Its visual system makes the experience feel immediate and contained: deep navy surfaces create a private enclosure, electric blue provides structure and action, and the supplied full OrbChat wordmark establishes its place in the Orb Games family.
+OrbChat is a free-standing room utility, not a branded destination or miniature app shell. Room entry and conversation sit directly on a solid deep-navy page; open spacing and hairline rules provide all necessary structure. The interface should feel immediate, quiet, and native to Orb Games without importing its site chrome.
 
-The system is a compact embedded utility, not a dashboard. Nunito, rounded controls, short labels, and dense but breathable spacing keep it friendly without weakening its code-first purpose. The same visual language must remain complete when the widget expands to a full mobile viewport.
+The system is code-first and deliberately reduced. Nunito keeps the utility approachable, accessible solid blue actions establish the path forward, and every visible element serves the short story: name yourself, create or enter a room, then exchange temporary messages.
 
 **Key Characteristics:**
 
-- Deep navy surfaces with electric-blue structure and restrained purple energy.
-- Compact, centered composition built around one clear task path.
-- Heavy, rounded Nunito typography with small, legible status labels.
-- Rounded controls and containers with explicit focus and connection states.
-- Full OrbChat wordmark as the primary identity asset.
+- One free-standing control column, capped at 500px.
+- Solid deep-navy canvas with no gradients, cards, or ornamental containers.
+- Accessible solid blue actions and bright-blue informational emphasis.
+- Transparent underlined fields and hairline conversation structure.
+- No visible logo, heading, connection badge, or repeated status decoration.
 
 ## Colors
 
-The palette layers cool navy surfaces and uses luminous blue sparingly for action, identity, room codes, and focus.
+The palette uses one uninterrupted navy world, high-contrast cool text, and a single accessible blue action family.
 
 ### Primary
 
-- **Orb Electric Blue:** The primary action and structural accent; it anchors gradients and identifies interactive emphasis.
-- **Signal Blue:** The brighter blue reserved for room codes, message authors, and other high-value information.
-
-### Secondary
-
-- **Arc Purple:** The secondary endpoint in the primary action gradient; use it to add Orb Games energy without becoming a separate action color.
+- **Action Blue:** The default fill for every enabled action.
+- **Pressed Blue:** The darker hover treatment for actions; it changes state without introducing a new hue.
+- **Signal Sky:** Room codes, message authors, and the text caret—information that should be found quickly but is not itself an action.
 
 ### Tertiary
 
-- **Alert Rose:** Validation errors and disconnected state.
-- **Connected Mint:** Ready and connected state.
-- **Focus Sky:** Keyboard focus outlines and focused field borders.
+- **Recovery Rose:** Validation, creation failures, and plain connection-recovery text.
+- **Focus Sky:** The explicit keyboard focus ring and focused-field underline.
 
 ### Neutral
 
-- **Deep Space:** The page-level canvas and outermost dark field.
-- **Room Navy:** The default widget and container surface.
-- **Raised Navy:** The elevated message surface.
-- **Input Navy:** The recessed field and message-well surface.
-- **Structural Blue:** The stronger border and hover-stroke color.
-- **Soft Structure:** The quiet divider, field border, and topbar separator.
-- **Starlight:** The default high-contrast text color.
-- **Cloud Blue:** Secondary text, status labels, and explanatory copy.
+- **Continuous Navy:** The sole page and interface canvas.
+- **Hairline Blue:** Default field underlines, message separators, and conversation boundaries.
+- **Active Hairline:** Hovered underlines, selection fill, and scrollbar thumbs.
+- **Starlight:** Primary message and input text.
+- **Cool Label:** Field labels and readable disabled-action text.
+- **Cloud Blue:** Dividers, system messages, and room-label context.
+- **Quiet Placeholder:** Placeholder and empty-conversation copy.
+- **Disabled Blue:** Inactive actions while work is pending or the connection is unavailable.
 
 ### Named Rules
 
-**The Electric Structure Rule.** Blue marks action, focus, and essential room information; it is not ambient decoration.
+**The One Canvas Rule.** Keep the page and utility on Continuous Navy; never introduce a second surface to imply a card, well, header, or nested shell.
 
-**The Navy Layer Rule.** Separate regions by moving between the established navy surfaces before adding borders or shadows.
+**The Action Contrast Rule.** Enabled actions use Action Blue and hover to Pressed Blue; Signal Sky is informational, not an alternate button color.
 
 ## Typography
 
-**Display Font:** Nunito (with ui-sans-serif, system-ui, sans-serif fallback)  
-**Body Font:** Nunito (with ui-sans-serif, system-ui, sans-serif fallback)  
+**Display Font:** None; the utility intentionally has no display heading.
+
+**Body Font:** Nunito (with ui-sans-serif, system-ui, sans-serif fallback)
+
 **Label Font:** Nunito (with ui-sans-serif, system-ui, sans-serif fallback)
 
-**Character:** Nunito gives the utility the rounded, approachable character of Orb Games while its heavier weights keep short instructions, controls, and room codes decisive at compact sizes.
+**Character:** Nunito supplies a friendly Orb Games family resemblance while compact weights and sizes keep the interface utilitarian. Hierarchy comes from weight, size, case, and tracking—not from a second family or decorative headline.
 
 ### Hierarchy
 
-- **Headline:** Extra-bold, fluid compact headline with tight tracking. Use once to state the current task.
-- **Body:** Medium-weight explanatory and message copy with open leading for legibility in the narrow widget.
-- **Label:** Extra-bold compact text for field labels, buttons, errors, and statuses. Uppercase and tracked variants are reserved for codes, dividers, and micro-statuses.
+- **Body:** Medium-weight 15px text with 1.5 line-height for inputs and participant messages.
+- **Label:** Extra-bold 12px text for field labels, buttons, status copy, author names, and system messages.
+- **Room Code:** Extra-bold 20px Signal Sky text with tabular numerals, uppercase characters, and .16em tracking.
+- **Divider and Room Context:** Extra-bold 12px text with uppercase treatment and restrained tracking.
 
 ### Named Rules
 
-**The One Family Rule.** Use Nunito throughout; hierarchy comes from weight, size, tracking, and case rather than a second typeface.
+**The No Headline Rule.** The first viewport begins with the display-name field; do not add a title, logo, wordmark, tagline, or introductory copy above it.
 
-**The Code Clarity Rule.** Room codes use uppercase tabular characters with generous tracking so every character can be shared and checked quickly.
+**The Code Clarity Rule.** Room codes remain uppercase, tabular, and widely tracked so they can be read and shared without ambiguity.
 
 ## Layout
 
-The core spatial model is a single widget no wider than 460px, centered in the available viewport with fluid outer padding. A 64px minimum-height branded bar sits above a compact content region. The primary content inset is 22px; controls use 44px touch heights, 9px paired-control gaps, and 16–20px separation between task groups.
+The interface is one centered column with a maximum width of 500px. Desktop and embedded views center it in both axes with fluid page padding; there is no outer shell treatment beyond the width constraint. Room entry is a vertical sequence: display name, full-width creation action, ruled text divider, then a flexible code field paired with an intrinsic-width Enter action.
 
-Layouts stay one-dimensional unless a field and its immediate action belong together. These pairs use a flexible input plus an intrinsic-width button. At 430px and below, the widget becomes the viewport: outer padding, corner rounding, and drop shadow disappear; content inset tightens to 16px; and the branded bar reduces its horizontal inset while preserving its height and hierarchy.
+Conversation preserves the same column. The room line sits above a scrollable message list bounded only by top and bottom hairlines. Messages stack as rows, and the composer repeats the flexible-field-plus-compact-action pattern. Paired controls use a 16px gap; the name field closes its group with 24px of space.
+
+At 430px and below, the page becomes top-led rather than vertically centered, using 42px top, 20px horizontal, and 24px bottom padding. The column remains full width, while the message list grows to 56vh with a 280px minimum height.
 
 ## Elevation & Depth
 
-Depth is a hybrid of tonal layering and restrained ambient shadow. Navy surface shifts do most of the structural work. The widget receives one broad shadow when floating on desktop; controls and focused fields use smaller shadows only to reinforce action or state. The mobile full-viewport treatment is flat.
-
-### Shadow Vocabulary
-
-- **Widget Float:** A broad, low-contrast black shadow that separates the centered utility from the page canvas.
-- **Action Lift:** A compact shadow beneath the primary action.
-- **Field Focus:** A small shadow paired with the focus border on an active field.
+OrbChat is completely flat. It uses no shadows, gradients, translucent panels, raised surfaces, or tonal containers. Depth is unnecessary because spacing, one-pixel rules, type hierarchy, and state color already make the path legible.
 
 ### Named Rules
 
-**The Tonal-First Rule.** Establish hierarchy with navy surface changes; shadow supports a layer but never defines it alone.
+**The Hairlines-Only Rule.** When separation is required, use open space or a one-pixel line; never solve hierarchy with a card, background patch, or shadow.
 
 ## Shapes
 
-The form language is consistently rounded and compact. Controls and message bubbles use gently rounded 12px corners; the message well uses 14px; and the desktop widget uses 16px. Status indicators and scrollbar thumbs are fully pill-shaped. Circles are reserved for tiny state dots. On narrow screens, the widget radius is removed because the widget becomes the page.
+Actions are the only visibly enclosed shapes and use gently rounded 10px corners. Fields are transparent with square geometry and a single bottom rule. Conversation rows are unboxed and square. Fully rounded geometry appears only on the scrollbar thumb, never as a status pill or interface container.
 
-**The Nested Radius Rule.** Inner elements are never rounder than the container that holds them, except purpose-built pills and state dots.
+**The Enclosure Has Meaning Rule.** A filled rounded shape means “action.” Do not reuse it for identity, status, messages, sections, or decoration.
 
 ## Components
 
 ### Buttons
 
-- **Shape:** Gently rounded control corners with a 44px minimum touch height.
-- **Primary:** Full-width electric-blue-to-purple action with white extra-bold text and a compact action shadow.
-- **Secondary:** Solid structural blue with white extra-bold text and horizontal padding sized to its label.
-- **Hover / Focus / Active:** Hover brightens without changing hue; focus uses a 3px Focus Sky outline with a 3px offset; active moves down by 1px. Disabled actions desaturate and reduce opacity while retaining their label.
-
-### Cards / Containers
-
-- **Corner Style:** 16px for the desktop widget, 12px for individual message bubbles.
-- **Background:** Room Navy for the shell, Raised Navy for message content, and Input Navy for recessed wells.
-- **Shadow Strategy:** The widget floats only on wider viewports; nested containers rely on tonal separation.
-- **Border:** One-pixel Soft Structure separators and field strokes; avoid outlining every surface.
-- **Internal Padding:** 22px for the main widget content, reduced to 16px on narrow screens.
+- **Shape:** Gently rounded 10px corners with a 46px minimum height.
+- **Primary:** Full-width Action Blue with white extra-bold 12px text.
+- **Compact:** The same action treatment with intrinsic width and 19–20px horizontal padding for Enter and Send.
+- **Hover / Focus / Active:** Hover shifts to Pressed Blue; keyboard focus uses a 3px Focus Sky outline with 3px offset; active moves down 1px.
+- **Disabled:** Disabled Blue with Cool Label text. Creation uses a waiting cursor while pending; disconnected composer actions remain visibly inactive.
 
 ### Inputs / Fields
 
-- **Style:** Recessed Input Navy, one-pixel Soft Structure border, 12px corners, 44px height, and 13px horizontal padding.
-- **Focus:** Shift to a slightly lighter navy, Focus Sky border, and a restrained focus shadow.
-- **Content:** Standard inputs use body text. Room codes use uppercase, tabular characters, and wide tracking.
-- **Error / Disabled:** Validation copy appears below the relevant group in Alert Rose; disabled action states remain readable and visibly inactive.
+- **Style:** Transparent, square, 48px high, with a one-pixel Hairline Blue bottom border and 2px horizontal inset.
+- **Focus:** The underline shifts to Focus Sky; no glow, fill, or enclosing outline is added.
+- **Content:** Default fields use Body typography. Room-code input is uppercase with tabular characters and .16em tracking.
+- **Error / Disabled:** Errors appear as plain Recovery Rose text below the relevant action group. The message field is disabled whenever the socket is not connected.
 
-### Status Pills
+### Entry Divider
 
-- **Style:** A 28px-high dark pill with compact extra-bold text and a 7px circular state dot.
-- **State:** Connected and ready use Connected Mint; connecting uses warm amber; disconnected uses Alert Rose.
+- **Style:** Uppercase “or enter a code” text centered between two one-pixel Hairline Blue rules.
+- **Spacing:** 25px above and 17px below, keeping the two entry paths distinct without adding a container.
 
-### Message Well and Bubbles
+### Conversation List
 
-- **Well:** A fixed-height, scrollable Input Navy region with 14px corners and 14px padding.
-- **Bubble:** Raised Navy with 12px corners and compact body copy. Author names use Signal Blue and extra-bold label text.
-- **System Message:** Centered, smaller, muted text on a transparent background; it must not resemble a participant message.
+- **Structure:** A 250–410px scroll region on larger views, bounded by top and bottom hairlines.
+- **Message:** Each participant message is a flat row with 13–14px vertical padding and a bottom hairline. The author appears above the body in Signal Sky.
+- **System Message:** Centered compact Cloud Blue text in the same open list; it never resembles a participant bubble.
+- **Empty State:** Centered Quiet Placeholder text reading “No messages yet”; no illustration or empty-state card.
 
-### Brand Bar
+### Connection Recovery
 
-- **Style:** A 64px minimum-height navy bar with the supplied full OrbChat wordmark at left and one compact state pill at right.
-- **Identity:** Preserve the wordmark's proportions and use it as the primary logo; do not substitute text or an unrelated icon.
+- **Style:** Plain Recovery Rose text beneath the conversation list, shown only after connection loss.
+- **Behavior:** The notice instructs the person to refresh and rejoin, while both composer controls are disabled. Connecting and connected states remain available to assistive technology without visible badges.
 
 ## Do's and Don'ts
 
 ### Do:
 
-- **Do** keep room entry and messaging inside a single compact path with the most important action visually dominant.
-- **Do** use the established navy layers before reaching for extra borders or shadows.
-- **Do** reserve electric blue for action, focus, and essential room information.
-- **Do** preserve clear hover, focus, active, connected, connecting, disconnected, validation, and disabled states.
-- **Do** let the widget become the full page at narrow mobile widths.
+- **Do** keep entry and conversation directly on Continuous Navy in one 500px column.
+- **Do** use Action Blue and Pressed Blue for enabled action states with explicit Focus Sky keyboard outlines.
+- **Do** use spacing and one-pixel lines to organize fields, dividers, messages, and the conversation viewport.
+- **Do** keep connection recovery visible as plain text and disable the entire composer when disconnected.
+- **Do** preserve readable mobile padding, touch targets, and reduced-motion behavior.
 
 ### Don't:
 
-- **Don't** add dashboard chrome, navigation, onboarding panels, or decorative modules around the utility.
-- **Don't** replace the supplied full OrbChat wordmark with plain text, a cropped symbol, or a new logo treatment.
-- **Don't** introduce sharp rectangular controls, pale surfaces, or typefaces outside the Nunito system.
-- **Don't** use purple as an independent semantic action or status color; it supports the primary action gradient.
-- **Don't** use shadow as the only cue separating nested navy surfaces.
+- **Don't** add a logo, wordmark, title, branded header, intro copy, or navigation chrome.
+- **Don't** add a gradient, outer card, boxed message well, message bubbles, raised surface, or shadow.
+- **Don't** add Ready, Connected, Connecting, or Disconnected badges; routine state stays visually silent.
+- **Don't** use ornamental containers, repeated status decoration, or shipping raster artwork.
+- **Don't** introduce a second font, decorative display type, or a competing accent hue.

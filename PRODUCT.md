@@ -31,13 +31,12 @@ The primary context is an embed within orb.games. The page must also remain comp
 
 ## Brand Commitments
 
-- Use the supplied OrbChat wordmark as the primary logo asset.
 - Visually belong to the same dark navy, electric-blue, rounded interface system as orb.games.
 - Keep the product name OrbChat.
+- Keep the utility surface free of logo bars, status badges, and card-shell chrome.
 
 ## Evidence on Hand
 
-- Supplied wordmark image.
 - Existing working room and messaging implementation.
 - orb.games is the binding visual reference.
 
