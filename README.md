@@ -1,4 +1,6 @@
-# Room Chat
+# OrbChat
+
+A compact, temporary room experience designed to embed cleanly inside Orb Games while remaining usable as a standalone page.
 
 ## Run locally
 
@@ -10,7 +12,7 @@
 
 ## Put it online
 
-Run `npm run deploy`. Wrangler prints the public address for your chat site.
+Run `npm run deploy`. Wrangler prints the public address for the site.
 
 ## Room and message cleanup
 
