@@ -1,6 +1,48 @@
 import { DurableObject } from "cloudflare:workers";
 
 const alphabet = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+const allowedFrameOrigin = "https://orb.games";
+const maxHistory = 100;
+const maxRoomConnections = 100;
+const messageCooldownMs = 750;
+
+function isSameOrigin(request) {
+  const origin = request.headers.get("Origin");
+  if (!origin) return false;
+
+  try {
+    const requestUrl = new URL(request.url);
+    const originUrl = new URL(origin);
+    return originUrl.protocol === requestUrl.protocol &&
+      originUrl.host === requestUrl.host;
+  } catch {
+    return false;
+  }
+}
+
+function secureResponse(response) {
+  const headers = new Headers(response.headers);
+  headers.set("Content-Security-Policy", `frame-ancestors ${allowedFrameOrigin}`);
+  headers.set("X-Content-Type-Options", "nosniff");
+  headers.set("Referrer-Policy", "no-referrer");
+  headers.set(
+    "Permissions-Policy",
+    "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
+  );
+
+  return new Response(response.body, {
+    status: response.status,
+    statusText: response.statusText,
+    headers
+  });
+}
+
+function errorResponse(message, status) {
+  return new Response(message, {
+    status,
+    headers: { "Cache-Control": "no-store" }
+  });
+}
 
 function makeCode() {
   return Array.from(
@@ -14,27 +56,38 @@ export default {
     const url = new URL(request.url);
 
     if (url.pathname === "/api/rooms" && request.method === "POST") {
-      return Response.json({ code: makeCode() });
+      if (!isSameOrigin(request)) {
+        return errorResponse("Origin not allowed", 403);
+      }
+
+      return Response.json(
+        { code: makeCode() },
+        { headers: { "Cache-Control": "no-store" } }
+      );
     }
 
     if (url.pathname === "/ws") {
+      if (!isSameOrigin(request)) {
+        return errorResponse("Origin not allowed", 403);
+      }
+
       const code = (url.searchParams.get("room") || "").toUpperCase();
       const name = (url.searchParams.get("name") || "").trim().slice(0, 24);
 
       if (request.method !== "GET" ||
           request.headers.get("Upgrade")?.toLowerCase() !== "websocket") {
-        return new Response("Expected a WebSocket connection", { status: 426 });
+        return errorResponse("Expected a WebSocket connection", 426);
       }
 
       if (!/^[A-Z2-9]{6}$/.test(code) || !name) {
-        return new Response("Invalid room code or name", { status: 400 });
+        return errorResponse("Invalid room code or name", 400);
       }
 
       const id = env.CHAT_ROOM.idFromName(code);
       return env.CHAT_ROOM.get(id).fetch(request);
     }
 
-    return env.ASSETS.fetch(request);
+    return secureResponse(await env.ASSETS.fetch(request));
   }
 };
 
@@ -44,12 +97,23 @@ export class ChatRoom extends DurableObject {
       .trim()
       .slice(0, 24);
 
+    if (!name) {
+      return errorResponse("Invalid name", 400);
+    }
+
+    if (this.ctx.getWebSockets().length >= maxRoomConnections) {
+      return errorResponse("Room is full", 429);
+    }
+
     const [client, server] = Object.values(new WebSocketPair());
     this.ctx.acceptWebSocket(server);
-    server.serializeAttachment({ name });
+    server.serializeAttachment({ name, lastMessageAt: 0 });
 
     const history = (await this.ctx.storage.get("messages")) || [];
-    server.send(JSON.stringify({ type: "history", messages: history }));
+    server.send(JSON.stringify({
+      type: "history",
+      messages: Array.isArray(history) ? history.slice(-maxHistory) : []
+    }));
 
     this.broadcast({ type: "system", text: name + " joined the room" });
     return new Response(null, { status: 101, webSocket: client });
@@ -66,11 +130,29 @@ export class ChatRoom extends DurableObject {
 
       if (!text) return;
 
-      const name = ws.deserializeAttachment()?.name || "Guest";
-      const entry = { name, text, time: Date.now() };
-      const history = (await this.ctx.storage.get("messages")) || [];
+      const attachment = ws.deserializeAttachment() || {};
+      const now = Date.now();
+
+      if (now - (attachment.lastMessageAt || 0) < messageCooldownMs) return;
+
+      ws.serializeAttachment({
+        name: attachment.name || "Guest",
+        lastMessageAt: now
+      });
+
+      const entry = {
+        name: attachment.name || "Guest",
+        text,
+        time: now
+      };
+      const storedHistory = await this.ctx.storage.get("messages");
+      const history = Array.isArray(storedHistory) ? storedHistory : [];
 
       history.push(entry);
+      if (history.length > maxHistory) {
+        history.splice(0, history.length - maxHistory);
+      }
+
       await this.ctx.storage.put("messages", history);
       this.broadcast({ type: "chat", ...entry });
     } catch {
@@ -96,7 +178,11 @@ export class ChatRoom extends DurableObject {
     const message = JSON.stringify(data);
     for (const client of this.ctx.getWebSockets()) {
       if (client.readyState === WebSocket.OPEN) {
-        client.send(message);
+        try {
+          client.send(message);
+        } catch {
+          // A closing socket should not prevent delivery to the rest of the room.
+        }
       }
     }
   }

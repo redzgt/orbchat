@@ -2,6 +2,15 @@
 
 A compact, temporary room experience designed to embed cleanly inside Orb Games while remaining usable as a standalone page.
 
+## Security and capacity
+
+- Only `https://orb.games` may embed the page in a frame.
+- Room creation and WebSocket upgrades require a same-origin browser request.
+- Rooms allow up to 100 simultaneous connections.
+- Each connection may send at most one accepted message every 750 ms.
+- Only the newest 100 messages are retained while a room is active.
+- Room storage is deleted after the final connection closes.
+
 ## Run locally
 
 1. Install Node.js.
