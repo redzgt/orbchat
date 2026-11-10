@@ -102,11 +102,14 @@
       color: var(--text); overflow-wrap: anywhere; font-size: 15px; line-height: 1.5;
     }
     .message:last-child { border-bottom: 0; }
-    .message strong { display: inline-flex; align-items: center; margin-bottom: 2px; color: var(--blue-bright); font-size: 12px; font-weight: 800; }
+    .message strong {
+      display: inline-flex; align-items: center; margin: 0 4px 2px 0;
+      color: var(--blue-bright); font-size: 12px; font-weight: 800;
+    }
     /* Keep the message body readable; only the sender name gets the dark text treatment. */
     .message.self { color: var(--text); }
     .message.self strong {
-      display: inline-flex; align-items: center; margin-right: 4px; padding: 3px 9px;
+      display: inline-flex; align-items: center; padding: 3px 9px;
       border-radius: 999px; background: var(--blue-bright); color: var(--ink);
     }
     .message.system { padding: 11px 2px; color: var(--muted); font-size: 12px; font-weight: 700; text-align: center; }
