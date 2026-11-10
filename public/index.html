@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#06081f">
   <meta name="color-scheme" content="dark">
   <title>Rooms</title>
@@ -33,18 +33,16 @@
     [hidden] { display: none !important; }
     html { min-height: 100%; background: var(--page); }
     body {
-      min-height: 100vh; margin: 0; display: grid; place-items: center;
+      min-height: 100vh; min-height: 100dvh; margin: 0; display: grid; place-items: center;
       padding: 8px clamp(18px, 5vw, 48px) clamp(24px, 6vw, 72px);
       background: var(--page); caret-color: var(--blue-bright);
     }
     ::selection { background: var(--line-strong); color: white; }
     button, input { font: inherit; }
+    button { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
     .shell { width: min(100%, 500px); }
     main { width: 100%; }
-    label {
-      display: block; margin-bottom: 6px; color: #dce4ff;
-      font-size: 12px; font-weight: 800;
-    }
+    label { display: block; margin-bottom: 6px; color: #dce4ff; font-size: 12px; font-weight: 800; }
     input {
       min-width: 0; width: 100%; height: 48px; padding: 0 2px;
       border: 0; border-bottom: 1px solid var(--line); border-radius: 0;
@@ -68,19 +66,17 @@
     .join-row input { text-transform: uppercase; letter-spacing: .16em; font-variant-numeric: tabular-nums; }
     .secondary { padding: 0 19px; }
     .create-row { margin-top: 12px; }
-    .create-random {
-      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-      width: 100%; min-height: 46px; padding: 0 16px;
-    }
+    .create-random { display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%; min-height: 46px; padding: 0 16px; }
     .create-random .icon { display: inline-flex; align-items: center; justify-content: center; font-size: 15px; line-height: 1; }
     #status { margin: 14px 0 0; color: var(--danger); font-size: 12px; font-weight: 700; line-height: 1.45; }
     #status:empty { display: none; }
     #room { display: none; }
-    .connection-notice { margin: 12px 0 0; color: var(--danger); font-size: 12px; font-weight: 700; line-height: 1.45; }
+    .connection-notice { margin: 8px 0 0; color: var(--danger); font-size: 12px; font-weight: 700; line-height: 1.45; }
     .connection-notice:empty { display: none; }
-    .top-bar { margin: 0 0 8px; display: flex; justify-content: flex-start; }
-    .leave-room { min-height: 28px; padding: 0 12px; border-radius: 8px; background: transparent; color: var(--muted); font-size: 11px; font-weight: 800; }
+    .top-bar { margin: 0 0 8px; display: flex; align-items: center; gap: 10px; }
+    .leave-room { min-height: 36px; padding: 0 12px; border-radius: 8px; background: transparent; color: var(--muted); font-size: 11px; font-weight: 800; }
     .leave-room:hover { background: rgba(102, 194, 255, 0.08); }
+    .online-count { color: #909bb9; font-size: 11px; font-weight: 700; }
     .roomline { margin-bottom: 18px; }
     .room-code { display: inline-flex; align-items: baseline; gap: 10px; color: var(--muted); font-size: 12px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
     .room-code strong { color: var(--blue-bright); font-size: 20px; font-variant-numeric: tabular-nums; letter-spacing: .16em; }
@@ -89,40 +85,36 @@
       height: min(54vh, 410px); min-height: 250px; overflow-y: auto; padding: 4px 0;
       border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
       scrollbar-color: var(--line-strong) transparent; scrollbar-width: thin;
+      overscroll-behavior: contain;
     }
-    #messages:empty::before {
-      display: grid; min-height: 100%; place-items: center; color: var(--placeholder);
-      content: "No messages yet"; font-size: 12px; font-weight: 700;
-    }
+    #messages:empty::before { display: grid; min-height: 100%; place-items: center; color: var(--placeholder); content: "No messages yet"; font-size: 12px; font-weight: 700; }
     #messages::-webkit-scrollbar { width: 7px; }
     #messages::-webkit-scrollbar-track { background: transparent; }
     #messages::-webkit-scrollbar-thumb { border-radius: 999px; background: var(--line-strong); }
-    .message {
-      margin: 0; padding: 13px 2px 14px; border-bottom: 1px solid var(--line);
-      color: var(--text); overflow-wrap: anywhere; font-size: 15px; line-height: 1.5;
-    }
+    .message { margin: 0; padding: 13px 2px 14px; border-bottom: 1px solid var(--line); color: var(--text); overflow-wrap: anywhere; font-size: 15px; line-height: 1.5; }
     .message:last-child { border-bottom: 0; }
-    .message strong {
-      display: inline-flex; align-items: center; margin: 0 4px 2px 0;
-      color: var(--blue-bright); font-size: 12px; font-weight: 800;
-    }
-    /* Keep the message body readable; only the sender name gets the dark text treatment. */
+    .message strong { display: inline-flex; align-items: center; margin: 0 6px 2px 0; color: var(--blue-bright); font-size: 12px; font-weight: 800; }
     .message.self { color: var(--text); }
-    .message.self strong {
-      display: inline-flex; align-items: center; padding: 3px 9px;
-      border-radius: 999px; background: var(--blue-bright); color: var(--ink);
-    }
+    .message.self strong { display: inline-flex; align-items: center; padding: 3px 9px; border-radius: 999px; background: var(--blue-bright); color: var(--ink); }
+    .message-time { display: inline-block; margin-left: 7px; color: #8994b0; font-size: 10px; font-weight: 600; white-space: nowrap; vertical-align: baseline; }
     .message.system { padding: 11px 2px; color: var(--muted); font-size: 12px; font-weight: 700; text-align: center; }
-    #send { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 16px; margin-top: 14px; }
-    #send button { padding: 0 20px; }
+    #typingIndicator { min-height: 20px; margin: 4px 0 0; color: var(--muted); font-size: 11px; font-weight: 700; }
+    #typingIndicator:empty { visibility: hidden; }
+    #send { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 12px; margin-top: 6px; }
+    #send button { min-width: 72px; min-height: 48px; padding: 0 20px; }
+    #send input { min-height: 48px; }
     @media (max-width: 430px) {
-      body { display: block; padding: 12px 20px 24px; }
+      body { display: block; padding: 8px 16px max(16px, env(safe-area-inset-bottom)); }
       .shell { width: 100%; }
-      #messages { height: 56vh; min-height: 280px; }
+      #room { min-height: calc(100dvh - 24px - env(safe-area-inset-bottom)); display: none; flex-direction: column; }
+      #messages { height: min(54dvh, 410px); min-height: 220px; }
+      #send { position: sticky; bottom: 0; gap: 8px; padding: 8px 0 max(6px, env(safe-area-inset-bottom)); background: var(--page); }
+      #send button { min-width: 76px; min-height: 50px; }
+      #send input { min-height: 50px; font-size: 16px; }
+      .secondary, .create-random { min-height: 50px; }
+      .leave-room { min-height: 40px; }
     }
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
-    }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; } }
   </style>
 </head>
 <body>
@@ -135,18 +127,20 @@
           <input id="code" maxlength="4" placeholder="ABCD" aria-label="Room code" autocomplete="off" spellcheck="false">
           <button class="secondary" id="join">Enter</button>
         </div>
-        <div class="create-row">
-          <button class="create-random" id="create" type="button"><span class="icon">↻</span><span>Create Random ID</span></button>
-        </div>
+        <div class="create-row"><button class="create-random" id="create" type="button"><span class="icon">↻</span><span>Create Random ID</span></button></div>
       </section>
       <p id="status" role="status" aria-live="polite"></p>
       <section id="room" aria-label="Room messages">
-        <div class="top-bar"><button type="button" class="leave-room" id="leaveRoom">Leave room</button></div>
+        <div class="top-bar">
+          <button type="button" class="leave-room" id="leaveRoom">Leave room</button>
+          <span id="onlineCount" class="online-count" aria-live="polite">1 online</span>
+        </div>
         <div class="roomline">
           <span class="room-code">Room <strong id="roomCode"></strong></span>
           <span id="connection" class="sr-only" aria-live="polite">Connecting</span>
         </div>
         <div id="messages" aria-live="polite" aria-label="Messages"></div>
+        <p id="typingIndicator" aria-live="polite"></p>
         <p id="connectionNotice" class="connection-notice" role="status" aria-live="polite"></p>
         <form id="send">
           <input id="message" maxlength="500" placeholder="Write a message" autocomplete="off" aria-label="Write a message" disabled>
@@ -158,8 +152,16 @@
   <script>
     const $ = id => document.getElementById(id);
     const NAME_STORAGE_KEY = "orbchat-last-name";
+    const typingUsers = new Map();
     let socket;
     let currentName = "";
+    let currentRoomCode = "";
+    let reconnectAttempts = 0;
+    let reconnectTimer;
+    let typingTimer;
+    let typingActive = false;
+    let lastTypingSentAt = 0;
+    let leavingRoom = false;
 
     function syncCurrentName() {
       currentName = $("name").value.trim();
@@ -171,7 +173,14 @@
       const connected = state === "connected";
       $("message").disabled = !connected;
       document.querySelector("#send button").disabled = !connected;
-      $("connectionNotice").textContent = state === "disconnected" ? "Connection lost. Refresh the page to rejoin." : "";
+      $("connectionNotice").textContent = state === "reconnecting"
+        ? "Connection lost. Reconnecting…"
+        : state === "disconnected" ? "Could not reconnect. Check your connection and keep this page open to retry." : "";
+    }
+
+    function formatTime(value) {
+      const date = new Date(value || Date.now());
+      return new Intl.DateTimeFormat([], { hour: "numeric", minute: "2-digit" }).format(date);
     }
 
     function showMessage(item, system = false) {
@@ -184,16 +193,127 @@
         const name = document.createElement("strong");
         name.textContent = item.name;
         message.append(name, document.createTextNode(item.text));
+        const time = document.createElement("time");
+        time.className = "message-time";
+        time.dateTime = new Date(item.time || Date.now()).toISOString();
+        time.textContent = formatTime(item.time);
+        message.append(time);
       }
       $("messages").appendChild(message);
       $("messages").scrollTop = $("messages").scrollHeight;
     }
 
-    function leaveRoom() {
-      if (socket) {
-        socket.close();
-        socket = null;
+    function renderTyping() {
+      const names = [...typingUsers.keys()].filter(name => name !== currentName);
+      $("typingIndicator").textContent = names.length === 0 ? ""
+        : names.length === 1 ? `${names[0]} is typing…`
+        : names.length === 2 ? `${names[0]} and ${names[1]} are typing…`
+        : "Several people are typing…";
+    }
+
+    function updateTyping(name, isTyping) {
+      clearTimeout(typingUsers.get(name)?.timer);
+      if (!isTyping) {
+        typingUsers.delete(name);
+      } else {
+        const timer = setTimeout(() => {
+          typingUsers.delete(name);
+          renderTyping();
+        }, 3000);
+        typingUsers.set(name, { timer });
       }
+      renderTyping();
+    }
+
+    function sendTyping(isTyping) {
+      if (socket?.readyState === WebSocket.OPEN) {
+        socket.send(JSON.stringify({ type: "typing", isTyping }));
+      }
+      typingActive = isTyping;
+    }
+
+    function stopTyping() {
+      clearTimeout(typingTimer);
+      if (typingActive) sendTyping(false);
+    }
+
+    function handleTypingInput() {
+      const hasText = $("message").value.trim().length > 0;
+      if (!hasText) {
+        stopTyping();
+        return;
+      }
+      const now = Date.now();
+      if (!typingActive || now - lastTypingSentAt > 1500) {
+        sendTyping(true);
+        lastTypingSentAt = now;
+      }
+      clearTimeout(typingTimer);
+      typingTimer = setTimeout(stopTyping, 1800);
+    }
+
+    function scheduleReconnect() {
+      if (leavingRoom || reconnectTimer) return;
+      reconnectAttempts += 1;
+      const delay = Math.min(1000 * (2 ** (reconnectAttempts - 1)), 15000);
+      setConnection("Reconnecting", "reconnecting");
+      reconnectTimer = setTimeout(() => {
+        reconnectTimer = null;
+        openSocket();
+      }, delay);
+    }
+
+    function openSocket() {
+      if (leavingRoom || !currentRoomCode) return;
+      const url = new URL("/ws", location.href);
+      url.protocol = location.protocol === "https:" ? "wss:" : "ws:";
+      url.searchParams.set("room", currentRoomCode);
+      url.searchParams.set("name", currentName);
+      const ws = new WebSocket(url);
+      socket = ws;
+      setConnection(reconnectAttempts ? "Reconnecting" : "Connecting", reconnectAttempts ? "reconnecting" : "connecting");
+      ws.onmessage = event => {
+        if (ws !== socket) return;
+        const data = JSON.parse(event.data);
+        if (data.type === "history") {
+          $("messages").replaceChildren();
+          for (const item of data.messages) showMessage(item);
+        } else if (data.type === "system") showMessage(data, true);
+        else if (data.type === "chat") showMessage(data);
+        else if (data.type === "presence") $("onlineCount").textContent = `${data.count} online`;
+        else if (data.type === "typing") updateTyping(data.name, data.isTyping);
+      };
+      ws.onerror = () => {
+        if (ws === socket) setConnection("Connection lost", "reconnecting");
+      };
+      ws.onclose = () => {
+        if (ws !== socket) return;
+        socket = null;
+        if (!leavingRoom) scheduleReconnect();
+      };
+      ws.onopen = () => {
+        if (ws !== socket) return;
+        reconnectAttempts = 0;
+        setConnection("Connected", "connected");
+        if (document.activeElement !== $("message")) $("message").focus();
+      };
+    }
+
+    function leaveRoom() {
+      leavingRoom = true;
+      clearTimeout(reconnectTimer);
+      reconnectTimer = null;
+      stopTyping();
+      if (socket) {
+        const oldSocket = socket;
+        socket = null;
+        oldSocket.close();
+      }
+      currentRoomCode = "";
+      reconnectAttempts = 0;
+      for (const entry of typingUsers.values()) clearTimeout(entry.timer);
+      typingUsers.clear();
+      renderTyping();
       $("room").style.display = "none";
       $("lobby").hidden = false;
       $("name").hidden = false;
@@ -215,32 +335,18 @@
         return;
       }
       syncCurrentName();
+      leavingRoom = false;
+      currentRoomCode = code;
+      reconnectAttempts = 0;
       $("status").textContent = "";
       $("roomCode").textContent = code;
+      $("onlineCount").textContent = "Connecting…";
       $("messages").replaceChildren();
       $("name").hidden = true;
       document.querySelector('label[for="name"]').hidden = true;
       $("lobby").hidden = true;
       $("room").style.display = "block";
-      const url = new URL("/ws", location.href);
-      url.protocol = location.protocol === "https:" ? "wss:" : "ws:";
-      url.searchParams.set("room", code);
-      url.searchParams.set("name", name);
-      socket = new WebSocket(url);
-      setConnection("Connecting", "connecting");
-      socket.onmessage = event => {
-        const data = JSON.parse(event.data);
-        if (data.type === "history") {
-          for (const item of data.messages) showMessage(item);
-        } else if (data.type === "system") showMessage(data, true);
-        else if (data.type === "chat") showMessage(data);
-      };
-      socket.onerror = () => setConnection("Connection failed", "disconnected");
-      socket.onclose = () => setConnection("Disconnected", "disconnected");
-      socket.onopen = () => {
-        setConnection("Connected", "connected");
-        $("message").focus();
-      };
+      openSocket();
     }
 
     $("create").onclick = async () => {
@@ -274,10 +380,12 @@
       if (event.key === "Enter") connect($("code").value.trim().toUpperCase());
     });
     $("name").addEventListener("input", syncCurrentName);
+    $("message").addEventListener("input", handleTypingInput);
     $("send").onsubmit = event => {
       event.preventDefault();
       const input = $("message");
       if (socket?.readyState === WebSocket.OPEN && input.value.trim()) {
+        stopTyping();
         socket.send(JSON.stringify({ text: input.value }));
         input.value = "";
       }
