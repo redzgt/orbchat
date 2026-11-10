@@ -56,10 +56,10 @@
     .saved-name-row { display: flex; align-items: center; gap: 8px; min-height: 34px; color: var(--text); font-size: 14px; font-weight: 800; overflow-wrap: anywhere; }
     .saved-name-label { color: var(--muted); }
     .edit-name {
-      display: inline-grid; place-items: center; width: 36px; min-height: 36px; padding: 0;
-      border-radius: 50%; background: transparent; color: var(--muted); font-size: 16px;
+      display: inline-grid; place-items: center; width: 32px; min-height: 32px; padding: 0;
+      border-radius: 50%; background: transparent; color: var(--muted); font-size: 14px;
     }
-    .edit-name:hover { background: rgba(102, 194, 255, .1); color: var(--blue-bright); }
+    .edit-name:hover { background: transparent; color: var(--blue-bright); }
     .join-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 16px; }
     .join-row input { text-transform: uppercase; letter-spacing: .16em; font-variant-numeric: tabular-nums; }
     .secondary { padding: 0 19px; }
@@ -197,9 +197,8 @@
     function showMessage(item, system = false) {
       const message = document.createElement("p");
       message.className = system ? "message system" : "message";
-      if (system) {
-        message.textContent = item.text;
-      } else {
+      if (system) message.textContent = item.text;
+      else {
         if (item.name && item.name === currentName) message.classList.add("self");
         const name = document.createElement("strong");
         name.textContent = item.name;
@@ -243,7 +242,7 @@
     }
 
     function handleTypingInput() {
-      if (!$ ("message").value.trim()) { stopTyping(); return; }
+      if (!$("message").value.trim()) { stopTyping(); return; }
       const now = Date.now();
       if (!typingActive || now - lastTypingSentAt > 1500) {
         sendTyping(true);
@@ -321,7 +320,7 @@
     }
 
     function connect(code) {
-      if (!$ ("name").value.trim() && !currentName) {
+      if (!$("name").value.trim() && !currentName) {
         $("status").textContent = "Enter and save a display name first.";
         $("name").focus();
         return;
@@ -349,7 +348,7 @@
 
     $("name").addEventListener("input", () => {
       $("status").textContent = "";
-      $("lobby").hidden = !$("name").value.trim();
+      $("lobby").hidden = !$ ("name").value.trim();
     });
     $("saveName").onclick = () => {
       const name = $("name").value.trim();
