@@ -46,7 +46,7 @@ function errorResponse(message, status) {
 
 function makeCode() {
   return Array.from(
-    crypto.getRandomValues(new Uint8Array(6)),
+    crypto.getRandomValues(new Uint8Array(4)),
     byte => alphabet[byte % alphabet.length]
   ).join("");
 }
@@ -79,7 +79,7 @@ export default {
         return errorResponse("Expected a WebSocket connection", 426);
       }
 
-      if (!/^[A-Z2-9]{6}$/.test(code) || !name) {
+      if (!/^[A-Z2-9]{4}$/.test(code) || !name) {
         return errorResponse("Invalid room code or name", 400);
       }
 
