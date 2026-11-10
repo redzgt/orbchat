@@ -29,268 +29,94 @@
       --focus: #94d5ff;
       --ink: #050a1e;
     }
-
     * { box-sizing: border-box; }
     [hidden] { display: none !important; }
-
     html { min-height: 100%; background: var(--page); }
-
     body {
-      min-height: 100vh;
-      margin: 0;
-      display: grid;
-      place-items: center;
+      min-height: 100vh; margin: 0; display: grid; place-items: center;
       padding: 8px clamp(18px, 5vw, 48px) clamp(24px, 6vw, 72px);
-      background: var(--page);
-      caret-color: var(--blue-bright);
+      background: var(--page); caret-color: var(--blue-bright);
     }
-
     ::selection { background: var(--line-strong); color: white; }
-
     button, input { font: inherit; }
-
-    .shell {
-      width: min(100%, 500px);
-    }
-
+    .shell { width: min(100%, 500px); }
     main { width: 100%; }
-
     label {
-      display: block;
-      margin-bottom: 6px;
-      color: #dce4ff;
-      font-size: 12px;
-      font-weight: 800;
+      display: block; margin-bottom: 6px; color: #dce4ff;
+      font-size: 12px; font-weight: 800;
     }
-
     input {
-      min-width: 0;
-      width: 100%;
-      height: 48px;
-      padding: 0 2px;
-      border: 0;
-      border-bottom: 1px solid var(--line);
-      border-radius: 0;
-      outline: none;
-      background: transparent;
-      color: var(--text);
-      font-size: 15px;
+      min-width: 0; width: 100%; height: 48px; padding: 0 2px;
+      border: 0; border-bottom: 1px solid var(--line); border-radius: 0;
+      outline: none; background: transparent; color: var(--text); font-size: 15px;
       transition: border-color 150ms ease;
     }
-
     input::placeholder { color: var(--placeholder); opacity: 1; }
     input:hover { border-color: var(--line-strong); }
     input:focus { border-color: var(--focus); }
-
     .name-field { margin-bottom: 24px; }
-
     button {
-      min-height: 46px;
-      border: 0;
-      border-radius: 10px;
-      background: var(--blue);
-      color: white;
-      cursor: pointer;
-      font-size: 12px;
-      font-weight: 800;
+      min-height: 46px; border: 0; border-radius: 10px; background: var(--blue);
+      color: white; cursor: pointer; font-size: 12px; font-weight: 800;
       transition: background 150ms ease, transform 150ms ease;
     }
-
     button:hover { background: var(--blue-hover); }
     button:active { transform: translateY(1px); }
     button:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
     button:disabled { cursor: wait; background: #24479d; color: #dce4ff; }
-
-    .primary { width: 100%; }
-
-    .join-row {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) auto;
-      align-items: end;
-      gap: 16px;
-    }
-
-    .join-row input {
-      text-transform: uppercase;
-      letter-spacing: .16em;
-      font-variant-numeric: tabular-nums;
-    }
-
+    .join-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 16px; }
+    .join-row input { text-transform: uppercase; letter-spacing: .16em; font-variant-numeric: tabular-nums; }
     .secondary { padding: 0 19px; }
-
     .create-row { margin-top: 12px; }
-
     .create-random {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      width: 100%;
-      min-height: 46px;
-      padding: 0 16px;
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      width: 100%; min-height: 46px; padding: 0 16px;
     }
-
-    .create-random .icon {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 15px;
-      line-height: 1;
-    }
-
-    #status {
-      margin: 14px 0 0;
-      color: var(--danger);
-      font-size: 12px;
-      font-weight: 700;
-      line-height: 1.45;
-    }
-
+    .create-random .icon { display: inline-flex; align-items: center; justify-content: center; font-size: 15px; line-height: 1; }
+    #status { margin: 14px 0 0; color: var(--danger); font-size: 12px; font-weight: 700; line-height: 1.45; }
     #status:empty { display: none; }
     #room { display: none; }
-
-    .connection-notice {
-      margin: 12px 0 0;
-      color: var(--danger);
-      font-size: 12px;
-      font-weight: 700;
-      line-height: 1.45;
-    }
-
+    .connection-notice { margin: 12px 0 0; color: var(--danger); font-size: 12px; font-weight: 700; line-height: 1.45; }
     .connection-notice:empty { display: none; }
-
-    .top-bar {
-      margin: 0 0 8px;
-      display: flex;
-      justify-content: flex-start;
-    }
-
-    .leave-room {
-      min-height: 28px;
-      padding: 0 12px;
-      border-radius: 8px;
-      background: transparent;
-      color: var(--muted);
-      font-size: 11px;
-      font-weight: 800;
-    }
-
+    .top-bar { margin: 0 0 8px; display: flex; justify-content: flex-start; }
+    .leave-room { min-height: 28px; padding: 0 12px; border-radius: 8px; background: transparent; color: var(--muted); font-size: 11px; font-weight: 800; }
     .leave-room:hover { background: rgba(102, 194, 255, 0.08); }
-
     .roomline { margin-bottom: 18px; }
-
-    .room-code {
-      display: inline-flex;
-      align-items: baseline;
-      gap: 10px;
-      color: var(--muted);
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-    }
-
-    .room-code strong {
-      color: var(--blue-bright);
-      font-size: 20px;
-      font-variant-numeric: tabular-nums;
-      letter-spacing: .16em;
-    }
-
-    .sr-only {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip: rect(0, 0, 0, 0);
-      white-space: nowrap;
-      border: 0;
-    }
-
+    .room-code { display: inline-flex; align-items: baseline; gap: 10px; color: var(--muted); font-size: 12px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+    .room-code strong { color: var(--blue-bright); font-size: 20px; font-variant-numeric: tabular-nums; letter-spacing: .16em; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
     #messages {
-      height: min(54vh, 410px);
-      min-height: 250px;
-      overflow-y: auto;
-      padding: 4px 0;
-      border-top: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
-      scrollbar-color: var(--line-strong) transparent;
-      scrollbar-width: thin;
+      height: min(54vh, 410px); min-height: 250px; overflow-y: auto; padding: 4px 0;
+      border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+      scrollbar-color: var(--line-strong) transparent; scrollbar-width: thin;
     }
-
     #messages:empty::before {
-      display: grid;
-      min-height: 100%;
-      place-items: center;
-      color: var(--placeholder);
-      content: "No messages yet";
-      font-size: 12px;
-      font-weight: 700;
+      display: grid; min-height: 100%; place-items: center; color: var(--placeholder);
+      content: "No messages yet"; font-size: 12px; font-weight: 700;
     }
-
     #messages::-webkit-scrollbar { width: 7px; }
     #messages::-webkit-scrollbar-track { background: transparent; }
     #messages::-webkit-scrollbar-thumb { border-radius: 999px; background: var(--line-strong); }
-
     .message {
-      margin: 0;
-      padding: 13px 2px 14px;
-      border-bottom: 1px solid var(--line);
-      color: var(--text);
-      overflow-wrap: anywhere;
-      font-size: 15px;
-      line-height: 1.5;
+      margin: 0; padding: 13px 2px 14px; border-bottom: 1px solid var(--line);
+      color: var(--text); overflow-wrap: anywhere; font-size: 15px; line-height: 1.5;
     }
-
     .message:last-child { border-bottom: 0; }
-
-    .message strong {
-      display: inline-flex;
-      align-items: center;
-      margin-bottom: 2px;
-      color: var(--blue-bright);
-      font-size: 12px;
-      font-weight: 800;
-    }
-
-    .message.self { color: var(--ink); }
-
+    .message strong { display: inline-flex; align-items: center; margin-bottom: 2px; color: var(--blue-bright); font-size: 12px; font-weight: 800; }
+    /* Keep the message body readable; only the sender name gets the dark text treatment. */
+    .message.self { color: var(--text); }
     .message.self strong {
-      display: inline-flex;
-      align-items: center;
-      margin-right: 4px;
-      padding: 3px 9px;
-      border-radius: 999px;
-      background: var(--blue-bright);
-      color: var(--ink);
+      display: inline-flex; align-items: center; margin-right: 4px; padding: 3px 9px;
+      border-radius: 999px; background: var(--blue-bright); color: var(--ink);
     }
-
-    .message.system {
-      padding: 11px 2px;
-      color: var(--muted);
-      font-size: 12px;
-      font-weight: 700;
-      text-align: center;
-    }
-
-    #send {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) auto;
-      align-items: end;
-      gap: 16px;
-      margin-top: 14px;
-    }
-
+    .message.system { padding: 11px 2px; color: var(--muted); font-size: 12px; font-weight: 700; text-align: center; }
+    #send { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 16px; margin-top: 14px; }
     #send button { padding: 0 20px; }
-
     @media (max-width: 430px) {
       body { display: block; padding: 12px 20px 24px; }
       .shell { width: 100%; }
       #messages { height: 56vh; min-height: 280px; }
     }
-
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
     }
@@ -301,7 +127,6 @@
     <main>
       <label for="name">Display name</label>
       <input class="name-field" id="name" maxlength="24" placeholder="How others will see you" autocomplete="nickname">
-
       <section id="lobby" aria-label="Enter a room">
         <div class="join-row">
           <input id="code" maxlength="4" placeholder="ABCD" aria-label="Room code" autocomplete="off" spellcheck="false">
@@ -311,13 +136,9 @@
           <button class="create-random" id="create" type="button"><span class="icon">↻</span><span>Create Random ID</span></button>
         </div>
       </section>
-
       <p id="status" role="status" aria-live="polite"></p>
-
       <section id="room" aria-label="Room messages">
-        <div class="top-bar">
-          <button type="button" class="leave-room" id="leaveRoom">Leave room</button>
-        </div>
+        <div class="top-bar"><button type="button" class="leave-room" id="leaveRoom">Leave room</button></div>
         <div class="roomline">
           <span class="room-code">Room <strong id="roomCode"></strong></span>
           <span id="connection" class="sr-only" aria-live="polite">Connecting</span>
@@ -331,7 +152,6 @@
       </section>
     </main>
   </div>
-
   <script>
     const $ = id => document.getElementById(id);
     const NAME_STORAGE_KEY = "orbchat-last-name";
@@ -340,9 +160,7 @@
 
     function syncCurrentName() {
       currentName = $("name").value.trim();
-      if (currentName) {
-        localStorage.setItem(NAME_STORAGE_KEY, currentName);
-      }
+      if (currentName) localStorage.setItem(NAME_STORAGE_KEY, currentName);
     }
 
     function setConnection(label, state) {
@@ -350,9 +168,7 @@
       const connected = state === "connected";
       $("message").disabled = !connected;
       document.querySelector("#send button").disabled = !connected;
-      $("connectionNotice").textContent = state === "disconnected"
-        ? "Connection lost. Refresh the page to rejoin."
-        : "";
+      $("connectionNotice").textContent = state === "disconnected" ? "Connection lost. Refresh the page to rejoin." : "";
     }
 
     function showMessage(item, system = false) {
@@ -361,9 +177,7 @@
       if (system) {
         message.textContent = item.text;
       } else {
-        const isSelf = item.name && item.name === currentName;
-        if (isSelf) message.classList.add("self");
-
+        if (item.name && item.name === currentName) message.classList.add("self");
         const name = document.createElement("strong");
         name.textContent = item.name;
         message.append(name, document.createTextNode(item.text));
@@ -397,7 +211,6 @@
         $("code").focus();
         return;
       }
-
       syncCurrentName();
       $("status").textContent = "";
       $("roomCode").textContent = code;
@@ -406,7 +219,6 @@
       document.querySelector('label[for="name"]').hidden = true;
       $("lobby").hidden = true;
       $("room").style.display = "block";
-
       const url = new URL("/ws", location.href);
       url.protocol = location.protocol === "https:" ? "wss:" : "ws:";
       url.searchParams.set("room", code);
@@ -417,11 +229,8 @@
         const data = JSON.parse(event.data);
         if (data.type === "history") {
           for (const item of data.messages) showMessage(item);
-        } else if (data.type === "system") {
-          showMessage(data, true);
-        } else if (data.type === "chat") {
-          showMessage(data);
-        }
+        } else if (data.type === "system") showMessage(data, true);
+        else if (data.type === "chat") showMessage(data);
       };
       socket.onerror = () => setConnection("Connection failed", "disconnected");
       socket.onclose = () => setConnection("Disconnected", "disconnected");
@@ -461,9 +270,7 @@
     $("code").addEventListener("keydown", event => {
       if (event.key === "Enter") connect($("code").value.trim().toUpperCase());
     });
-    $("name").addEventListener("input", () => {
-      syncCurrentName();
-    });
+    $("name").addEventListener("input", syncCurrentName);
     $("send").onsubmit = event => {
       event.preventDefault();
       const input = $("message");
