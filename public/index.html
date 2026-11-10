@@ -11,23 +11,12 @@
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;600;700;800&amp;display=swap" rel="stylesheet">
   <style>
     :root {
-      color-scheme: dark;
-      font-family: "Nunito", ui-sans-serif, system-ui, sans-serif;
-      color: #f7f8ff;
-      background: #06081f;
-      font-synthesis: none;
-      --page: #06081f;
-      --line: #24356f;
-      --line-strong: #3653b3;
-      --blue: #2563eb;
-      --blue-hover: #1d4ed8;
-      --blue-bright: #66c2ff;
-      --text: #f7f8ff;
-      --muted: #aebce8;
-      --placeholder: #8c9bc9;
-      --danger: #ff9caf;
-      --focus: #94d5ff;
-      --ink: #050a1e;
+      color-scheme: dark; font-family: "Nunito", ui-sans-serif, system-ui, sans-serif;
+      color: #f7f8ff; background: #06081f; font-synthesis: none;
+      --page: #06081f; --line: #24356f; --line-strong: #3653b3;
+      --blue: #2563eb; --blue-hover: #1d4ed8; --blue-bright: #66c2ff;
+      --text: #f7f8ff; --muted: #aebce8; --placeholder: #8c9bc9;
+      --danger: #ff9caf; --focus: #94d5ff; --ink: #050a1e;
     }
     * { box-sizing: border-box; }
     [hidden] { display: none !important; }
@@ -42,6 +31,8 @@
     button { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
     .shell { width: min(100%, 500px); }
     main { width: 100%; }
+    .name-editor { margin-bottom: 20px; }
+    .name-form { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 12px; }
     label { display: block; margin-bottom: 6px; color: #dce4ff; font-size: 12px; font-weight: 800; }
     input {
       min-width: 0; width: 100%; height: 48px; padding: 0 2px;
@@ -52,7 +43,6 @@
     input::placeholder { color: var(--placeholder); opacity: 1; }
     input:hover { border-color: var(--line-strong); }
     input:focus { border-color: var(--focus); }
-    .name-field { margin-bottom: 24px; }
     button {
       min-height: 46px; border: 0; border-radius: 10px; background: var(--blue);
       color: white; cursor: pointer; font-size: 12px; font-weight: 800;
@@ -62,6 +52,14 @@
     button:active { transform: translateY(1px); }
     button:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
     button:disabled { cursor: wait; background: #24479d; color: #dce4ff; }
+    .save-name { padding: 0 18px; }
+    .saved-name-row { display: flex; align-items: center; gap: 8px; min-height: 34px; color: var(--text); font-size: 14px; font-weight: 800; overflow-wrap: anywhere; }
+    .saved-name-label { color: var(--muted); }
+    .edit-name {
+      display: inline-grid; place-items: center; width: 36px; min-height: 36px; padding: 0;
+      border-radius: 50%; background: transparent; color: var(--muted); font-size: 16px;
+    }
+    .edit-name:hover { background: rgba(102, 194, 255, .1); color: var(--blue-bright); }
     .join-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 16px; }
     .join-row input { text-transform: uppercase; letter-spacing: .16em; font-variant-numeric: tabular-nums; }
     .secondary { padding: 0 19px; }
@@ -81,12 +79,7 @@
     .room-code { display: inline-flex; align-items: baseline; gap: 10px; color: var(--muted); font-size: 12px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
     .room-code strong { color: var(--blue-bright); font-size: 20px; font-variant-numeric: tabular-nums; letter-spacing: .16em; }
     .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
-    #messages {
-      height: min(54vh, 410px); min-height: 250px; overflow-y: auto; padding: 4px 0;
-      border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
-      scrollbar-color: var(--line-strong) transparent; scrollbar-width: thin;
-      overscroll-behavior: contain;
-    }
+    #messages { height: min(54vh, 410px); min-height: 250px; overflow-y: auto; padding: 4px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); scrollbar-color: var(--line-strong) transparent; scrollbar-width: thin; overscroll-behavior: contain; }
     #messages:empty::before { display: grid; min-height: 100%; place-items: center; color: var(--placeholder); content: "No messages yet"; font-size: 12px; font-weight: 700; }
     #messages::-webkit-scrollbar { width: 7px; }
     #messages::-webkit-scrollbar-track { background: transparent; }
@@ -111,7 +104,8 @@
       #send { position: sticky; bottom: 0; gap: 8px; padding: 8px 0 max(6px, env(safe-area-inset-bottom)); background: var(--page); }
       #send button { min-width: 76px; min-height: 50px; }
       #send input { min-height: 50px; font-size: 16px; }
-      .secondary, .create-random { min-height: 50px; }
+      .secondary, .create-random, .save-name { min-height: 50px; }
+      .edit-name { min-width: 40px; min-height: 40px; }
       .leave-room { min-height: 40px; }
     }
     @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; } }
@@ -120,9 +114,20 @@
 <body>
   <div class="shell">
     <main>
-      <label for="name">Display name</label>
-      <input class="name-field" id="name" maxlength="24" placeholder="How others will see you" autocomplete="nickname">
-      <section id="lobby" aria-label="Enter a room">
+      <section id="nameArea" class="name-editor" aria-label="Your display name">
+        <div id="nameEditor">
+          <label for="name">Display name</label>
+          <div class="name-form">
+            <input id="name" maxlength="24" placeholder="How others will see you" autocomplete="nickname">
+            <button type="button" class="save-name" id="saveName">Save</button>
+          </div>
+        </div>
+        <div id="savedNameRow" class="saved-name-row" hidden>
+          <span><span class="saved-name-label">Name:</span> <span id="savedName"></span></span>
+          <button type="button" class="edit-name" id="editName" aria-label="Edit display name" title="Edit name">✎</button>
+        </div>
+      </section>
+      <section id="lobby" aria-label="Enter a room" hidden>
         <div class="join-row">
           <input id="code" maxlength="4" placeholder="ABCD" aria-label="Room code" autocomplete="off" spellcheck="false">
           <button class="secondary" id="join">Enter</button>
@@ -163,9 +168,16 @@
     let lastTypingSentAt = 0;
     let leavingRoom = false;
 
-    function syncCurrentName() {
-      currentName = $("name").value.trim();
-      if (currentName) localStorage.setItem(NAME_STORAGE_KEY, currentName);
+    function setName(name, persist = true) {
+      currentName = name.trim().slice(0, 24);
+      if (!currentName) return false;
+      if (persist) localStorage.setItem(NAME_STORAGE_KEY, currentName);
+      $("name").value = currentName;
+      $("savedName").textContent = currentName;
+      $("nameEditor").hidden = true;
+      $("savedNameRow").hidden = false;
+      $("lobby").hidden = false;
+      return true;
     }
 
     function setConnection(label, state) {
@@ -179,8 +191,7 @@
     }
 
     function formatTime(value) {
-      const date = new Date(value || Date.now());
-      return new Intl.DateTimeFormat([], { hour: "numeric", minute: "2-digit" }).format(date);
+      return new Intl.DateTimeFormat([], { hour: "numeric", minute: "2-digit" }).format(new Date(value || Date.now()));
     }
 
     function showMessage(item, system = false) {
@@ -213,22 +224,16 @@
 
     function updateTyping(name, isTyping) {
       clearTimeout(typingUsers.get(name)?.timer);
-      if (!isTyping) {
-        typingUsers.delete(name);
-      } else {
-        const timer = setTimeout(() => {
-          typingUsers.delete(name);
-          renderTyping();
-        }, 3000);
+      if (!isTyping) typingUsers.delete(name);
+      else {
+        const timer = setTimeout(() => { typingUsers.delete(name); renderTyping(); }, 3000);
         typingUsers.set(name, { timer });
       }
       renderTyping();
     }
 
     function sendTyping(isTyping) {
-      if (socket?.readyState === WebSocket.OPEN) {
-        socket.send(JSON.stringify({ type: "typing", isTyping }));
-      }
+      if (socket?.readyState === WebSocket.OPEN) socket.send(JSON.stringify({ type: "typing", isTyping }));
       typingActive = isTyping;
     }
 
@@ -238,11 +243,7 @@
     }
 
     function handleTypingInput() {
-      const hasText = $("message").value.trim().length > 0;
-      if (!hasText) {
-        stopTyping();
-        return;
-      }
+      if (!$ ("message").value.trim()) { stopTyping(); return; }
       const now = Date.now();
       if (!typingActive || now - lastTypingSentAt > 1500) {
         sendTyping(true);
@@ -257,10 +258,7 @@
       reconnectAttempts += 1;
       const delay = Math.min(1000 * (2 ** (reconnectAttempts - 1)), 15000);
       setConnection("Reconnecting", "reconnecting");
-      reconnectTimer = setTimeout(() => {
-        reconnectTimer = null;
-        openSocket();
-      }, delay);
+      reconnectTimer = setTimeout(() => { reconnectTimer = null; openSocket(); }, delay);
     }
 
     function openSocket() {
@@ -283,9 +281,7 @@
         else if (data.type === "presence") $("onlineCount").textContent = `${data.count} online`;
         else if (data.type === "typing") updateTyping(data.name, data.isTyping);
       };
-      ws.onerror = () => {
-        if (ws === socket) setConnection("Connection lost", "reconnecting");
-      };
+      ws.onerror = () => { if (ws === socket) setConnection("Connection lost", "reconnecting"); };
       ws.onclose = () => {
         if (ws !== socket) return;
         socket = null;
@@ -295,7 +291,6 @@
         if (ws !== socket) return;
         reconnectAttempts = 0;
         setConnection("Connected", "connected");
-        if (document.activeElement !== $("message")) $("message").focus();
       };
     }
 
@@ -315,17 +310,19 @@
       typingUsers.clear();
       renderTyping();
       $("room").style.display = "none";
-      $("lobby").hidden = false;
-      $("name").hidden = false;
-      document.querySelector('label[for="name"]').hidden = false;
+      $("lobby").hidden = !currentName;
+      $("nameArea").hidden = false;
+      if (currentName) {
+        $("nameEditor").hidden = true;
+        $("savedNameRow").hidden = false;
+      }
       $("status").textContent = "";
-      $("code").focus();
+      if (currentName) $("code").focus(); else $("name").focus();
     }
 
     function connect(code) {
-      const name = $("name").value.trim();
-      if (!name) {
-        $("status").textContent = "Enter a display name first.";
+      if (!$ ("name").value.trim() && !currentName) {
+        $("status").textContent = "Enter and save a display name first.";
         $("name").focus();
         return;
       }
@@ -334,7 +331,9 @@
         $("code").focus();
         return;
       }
-      syncCurrentName();
+      const typedName = $("name").value.trim();
+      if (typedName && typedName !== currentName) setName(typedName);
+      currentName = currentName || typedName;
       leavingRoom = false;
       currentRoomCode = code;
       reconnectAttempts = 0;
@@ -342,19 +341,42 @@
       $("roomCode").textContent = code;
       $("onlineCount").textContent = "Connecting…";
       $("messages").replaceChildren();
-      $("name").hidden = true;
-      document.querySelector('label[for="name"]').hidden = true;
+      $("nameArea").hidden = true;
       $("lobby").hidden = true;
       $("room").style.display = "block";
       openSocket();
     }
 
+    $("name").addEventListener("input", () => {
+      $("status").textContent = "";
+      $("lobby").hidden = !$("name").value.trim();
+    });
+    $("saveName").onclick = () => {
+      const name = $("name").value.trim();
+      if (!name) {
+        $("status").textContent = "Type your name first.";
+        $("name").focus();
+        return;
+      }
+      $("status").textContent = "";
+      setName(name);
+    };
+    $("editName").onclick = () => {
+      $("name").value = currentName;
+      $("savedNameRow").hidden = true;
+      $("nameEditor").hidden = false;
+      $("lobby").hidden = false;
+      $("name").focus();
+    };
+
     $("create").onclick = async () => {
-      if (!$("name").value.trim()) {
+      const typedName = $("name").value.trim();
+      if (!currentName && !typedName) {
         $("status").textContent = "Enter a display name first.";
         $("name").focus();
         return;
       }
+      if (typedName && typedName !== currentName) setName(typedName);
       const button = $("create");
       button.disabled = true;
       button.querySelector("span:last-child").textContent = "Creating…";
@@ -379,7 +401,6 @@
     $("code").addEventListener("keydown", event => {
       if (event.key === "Enter") connect($("code").value.trim().toUpperCase());
     });
-    $("name").addEventListener("input", syncCurrentName);
     $("message").addEventListener("input", handleTypingInput);
     $("send").onsubmit = event => {
       event.preventDefault();
@@ -393,8 +414,17 @@
 
     const savedName = localStorage.getItem(NAME_STORAGE_KEY);
     if (savedName) {
-      $("name").value = savedName;
-      currentName = savedName;
+      currentName = savedName.trim().slice(0, 24);
+      $("name").value = currentName;
+      $("savedName").textContent = currentName;
+      $("nameEditor").hidden = true;
+      $("savedNameRow").hidden = false;
+      $("lobby").hidden = false;
+    } else {
+      $("nameArea").hidden = false;
+      $("nameEditor").hidden = false;
+      $("savedNameRow").hidden = true;
+      $("lobby").hidden = true;
     }
   </script>
 </body>
