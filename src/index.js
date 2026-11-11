@@ -27,7 +27,10 @@ function frameAncestorsForRequest(request) {
 
 function secureResponse(response, request) {
   const headers = new Headers(response.headers);
-  headers.set("Content-Security-Policy", `frame-ancestors ${frameAncestorsForRequest(request)};`);
+  const csp = headers.get("Content-Security-Policy") || "";
+  const directives = csp.split(";").filter(directive => !/^\s*frame-ancestors(?:\s|$)/i.test(directive));
+  directives.push(`frame-ancestors ${frameAncestorsForRequest(request)}`);
+  headers.set("Content-Security-Policy", `${directives.join(";").replace(/^;+|;+$/g, "")};`);
   headers.set("X-Content-Type-Options", "nosniff");
   headers.set("Referrer-Policy", "no-referrer");
   headers.set("Permissions-Policy", "camera=(), microphone=(), geolocation=(), payment=(), usb=()");
