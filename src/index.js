@@ -20,7 +20,9 @@ function isSameOrigin(request) {
 
 function frameAncestorsForRequest(request) {
   const hostname = new URL(request.url).hostname;
-  return [`https://${hostname}`, `https://*.${hostname}`].join(" ");
+  const labels = hostname.split(".");
+  const domain = labels.length > 2 ? labels.slice(1).join(".") : hostname;
+  return [`https://${domain}`, `https://*.${domain}`].join(" ");
 }
 
 function secureResponse(response, request) {

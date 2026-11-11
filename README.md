@@ -4,7 +4,7 @@ A compact, temporary room experience designed to embed cleanly inside Orb Games 
 
 ## Security and capacity
 
-- Only `https://orb.games` may embed the page in a frame.
+- The page may be embedded by HTTPS hosts on the same parent domain as the Worker (for example, `rooms.example.com` allows `example.com` and `math.example.com`).
 - Room creation and WebSocket upgrades require a same-origin browser request.
 - Rooms allow up to 100 simultaneous connections.
 - Each connection may send at most one accepted message every 750 ms.
