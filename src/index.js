@@ -1,7 +1,6 @@
 import { DurableObject } from "cloudflare:workers";
 
 const alphabet = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
-const allowedFrameOrigin = "https://orb.games";
 const maxHistory = 100;
 const maxRoomConnections = 100;
 const messageCooldownMs = 750;
@@ -19,9 +18,14 @@ function isSameOrigin(request) {
   }
 }
 
-function secureResponse(response) {
+function frameAncestorsForRequest(request) {
+  const hostname = new URL(request.url).hostname;
+  return [`https://${hostname}`, `https://*.${hostname}`].join(" ");
+}
+
+function secureResponse(response, request) {
   const headers = new Headers(response.headers);
-  headers.set("Content-Security-Policy", `frame-ancestors ${allowedFrameOrigin}`);
+  headers.set("Content-Security-Policy", `frame-ancestors ${frameAncestorsForRequest(request)};`);
   headers.set("X-Content-Type-Options", "nosniff");
   headers.set("Referrer-Policy", "no-referrer");
   headers.set("Permissions-Policy", "camera=(), microphone=(), geolocation=(), payment=(), usb=()");
@@ -57,7 +61,7 @@ export default {
       return env.CHAT_ROOM.get(id).fetch(request);
     }
 
-    return secureResponse(await env.ASSETS.fetch(request));
+    return secureResponse(await env.ASSETS.fetch(request), request);
   }
 };
 
