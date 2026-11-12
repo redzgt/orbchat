@@ -79,7 +79,7 @@
     .room-code { display: inline-flex; align-items: baseline; gap: 10px; color: var(--muted); font-size: 12px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
     .room-code strong { color: var(--blue-bright); font-size: 20px; font-variant-numeric: tabular-nums; letter-spacing: .16em; }
     .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
-    #messages { height: min(54vh, 410px); min-height: 250px; overflow-y: auto; padding: 4px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); scrollbar-color: var(--line-strong) transparent; scrollbar-width: thin; overscroll-behavior: contain; }
+    #messages { height: min(54vh, 410px); min-height: 250px; overflow-y: auto; padding: 4px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); scrollbar-color: var(--line-strong) transparent; }
     #messages:empty::before { display: grid; min-height: 100%; place-items: center; color: var(--placeholder); content: "No messages yet"; font-size: 12px; font-weight: 700; }
     #messages::-webkit-scrollbar { width: 7px; }
     #messages::-webkit-scrollbar-track { background: transparent; }
@@ -325,7 +325,7 @@
         $("name").focus();
         return;
       }
-      if (!/^[A-Z2-9]{4}$/.test(code)) {
+      if (code !== "OPEN" && !/^[A-Z2-9]{4}$/.test(code)) {
         $("status").textContent = "Enter a valid four-character room code.";
         $("code").focus();
         return;
