@@ -43,7 +43,12 @@
       if (status) status.textContent = "Could not check the room. Try again.";
     }
   }
+
+  // The worker renames the original connect function so every join can first
+  // perform the server-side duplicate-name check. Route all existing UI
+  // handlers (manual code, create random ID, and public rooms) through it.
   window.orbchatConnect = connectWithValidation;
+  window.connect = connectWithValidation;
 
   function addPublicRooms() {
     const lobby = document.getElementById("lobby");
