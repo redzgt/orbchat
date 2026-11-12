@@ -4,6 +4,16 @@ const alphabet = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 const maxHistory = 100;
 const maxRoomConnections = 100;
 const messageCooldownMs = 750;
+const blockedWordPattern = /\b(?:ass|asshole|bastard|bitch|bullshit|cock|cunt|damn|dick|fag|faggot|fuck|fucker|fucking|motherfucker|nigger|piss|prick|pussy|shit|slut|twat|whore)\b/i;
+const messageWordPattern = /\b(?:asshole|bastard|bitch|bullshit|cock|cunt|damn|dick|fag|faggot|fuck|fucker|fucking|motherfucker|nigger|piss|prick|pussy|shit|slut|twat|whore)\b/gi;
+
+function isNameAllowed(name) {
+  return !blockedWordPattern.test(name);
+}
+
+function censorMessage(text) {
+  return text.replace(messageWordPattern, word => word[0] + "*".repeat(Math.max(0, word.length - 1)));
+}
 
 function isSameOrigin(request) {
   const origin = request.headers.get("Origin");
@@ -54,6 +64,22 @@ export default {
       return Response.json({ code: makeCode() }, { headers: { "Cache-Control": "no-store" } });
     }
 
+    if (url.pathname === "/api/rooms/check-name" && request.method === "POST") {
+      if (!isSameOrigin(request)) return errorResponse("Origin not allowed", 403);
+      let data;
+      try {
+        data = await request.json();
+      } catch {
+        return errorResponse("Invalid request", 400);
+      }
+      const code = typeof data.code === "string" ? data.code.toUpperCase() : "";
+      const name = typeof data.name === "string" ? data.name.trim().slice(0, 24) : "";
+      if (!/^[A-Z2-9]{4}$/.test(code) || !name) return errorResponse("Invalid room code or name", 400);
+      if (!isNameAllowed(name)) return errorResponse("This name is not allowed", 400);
+      const id = env.CHAT_ROOM.idFromName(code);
+      return env.CHAT_ROOM.get(id).fetch(new Request(`https://room.internal/check-name?name=${encodeURIComponent(name)}`));
+    }
+
     if (url.pathname === "/ws") {
       if (!isSameOrigin(request)) return errorResponse("Origin not allowed", 403);
       const code = (url.searchParams.get("room") || "").toUpperCase();
@@ -62,6 +88,7 @@ export default {
         return errorResponse("Expected a WebSocket connection", 426);
       }
       if (!/^[A-Z2-9]{4}$/.test(code) || !name) return errorResponse("Invalid room code or name", 400);
+      if (!isNameAllowed(name)) return errorResponse("This name is not allowed", 400);
       const id = env.CHAT_ROOM.idFromName(code);
       return env.CHAT_ROOM.get(id).fetch(request);
     }
@@ -72,9 +99,28 @@ export default {
 
 export class ChatRoom extends DurableObject {
   async fetch(request) {
-    const name = (new URL(request.url).searchParams.get("name") || "").trim().slice(0, 24);
+    const url = new URL(request.url);
+    const name = (url.searchParams.get("name") || "").trim().slice(0, 24);
+
+    if (url.pathname === "/check-name") {
+      if (!name) return errorResponse("Invalid name", 400);
+      if (!isNameAllowed(name)) return errorResponse("This name is not allowed", 400);
+      const existing = this.ctx.getWebSockets().some(peer => {
+        const peerName = peer.deserializeAttachment()?.name || "";
+        return peer.readyState === WebSocket.OPEN && peerName.toLocaleLowerCase() === name.toLocaleLowerCase();
+      });
+      if (existing) return errorResponse("Someone has your name, please change your name", 409);
+      return Response.json({ available: true }, { headers: { "Cache-Control": "no-store" } });
+    }
+
     if (!name) return errorResponse("Invalid name", 400);
+    if (!isNameAllowed(name)) return errorResponse("This name is not allowed", 400);
     if (this.ctx.getWebSockets().length >= maxRoomConnections) return errorResponse("Room is full", 429);
+    const duplicate = this.ctx.getWebSockets().some(peer => {
+      const peerName = peer.deserializeAttachment()?.name || "";
+      return peer.readyState === WebSocket.OPEN && peerName.toLocaleLowerCase() === name.toLocaleLowerCase();
+    });
+    if (duplicate) return errorResponse("Someone has your name, please change your name", 409);
 
     const [client, server] = Object.values(new WebSocketPair());
     this.ctx.acceptWebSocket(server);
@@ -98,7 +144,7 @@ export class ChatRoom extends DurableObject {
         return;
       }
 
-      const text = typeof data.text === "string" ? data.text.trim().slice(0, 500) : "";
+      const text = typeof data.text === "string" ? censorMessage(data.text.trim()).slice(0, 500) : "";
       if (!text) return;
       const now = Date.now();
       if (now - (attachment.lastMessageAt || 0) < messageCooldownMs) return;
