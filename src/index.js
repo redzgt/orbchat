@@ -4,21 +4,55 @@ const alphabet = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 const maxHistory = 100;
 const maxRoomConnections = 100;
 const messageCooldownMs = 750;
-const blockedWordPattern = /\b(?:ass|asshole|bastard|bitch|bullshit|cock|cunt|damn|dick|fag|faggot|fuck|fucker|fucking|motherfucker|nigger|piss|prick|pussy|shit|slut|twat|whore)\b/i;
-const messageWordPattern = /\b(?:asshole|bastard|bitch|bullshit|cock|cunt|damn|dick|fag|faggot|fuck|fucker|fucking|motherfucker|nigger|piss|prick|pussy|shit|slut|twat|whore)\b/gi;
+
+// Match standalone words and common suffixes, including the requested partial
+// slur form, without treating unrelated words such as "night" as a match.
+const blockedTokenRules = [
+  { exact: ["ass", "asses"] },
+  { prefix: ["asshole", "bastard", "bitch", "bullshit", "cock", "cunt", "damn", "dick", "fag", "faggot", "fuck", "motherfuck", "piss", "prick", "pussy", "shit", "slut", "twat", "whore"] },
+  { exact: ["nig"] },
+  { prefix: ["nigg", "nigga"] }
+];
+
+function normalizeToken(token) {
+  return token.normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[0]/g, "o")
+    .replace(/[1!|]/g, "i")
+    .replace(/[3]/g, "e")
+    .replace(/[4@]/g, "a")
+    .replace(/[5$]/g, "s")
+    .replace(/[7]/g, "t")
+    .replace(/[8]/g, "b")
+    .replace(/[^a-z]/g, "");
+}
+
+function containsBlockedLanguage(text) {
+  const tokens = text.match(/[\p{L}\p{N}]+/gu) || [];
+  return tokens.some(rawToken => {
+    const token = normalizeToken(rawToken);
+    return blockedTokenRules.some(rule =>
+      rule.exact?.includes(token) || rule.prefix?.some(prefix => token.startsWith(prefix))
+    );
+  });
+}
 
 function isNameAllowed(name) {
-  return !blockedWordPattern.test(name);
+  return !containsBlockedLanguage(name);
 }
 
 function censorMessage(text) {
-  return text.replace(messageWordPattern, word => word[0] + "*".repeat(Math.max(0, word.length - 1)));
+  return text.replace(/[\p{L}\p{N}]+/gu, rawToken => {
+    if (!containsBlockedLanguage(rawToken)) return rawToken;
+    const letters = Array.from(rawToken);
+    return letters[0] + "*".repeat(Math.max(0, letters.length - 1));
+  });
 }
 
 function isSameOrigin(request) {
   const origin = request.headers.get("Origin");
   if (!origin) return false;
-
   try {
     const requestUrl = new URL(request.url);
     const originUrl = new URL(origin);
@@ -64,14 +98,20 @@ export default {
       return Response.json({ code: makeCode() }, { headers: { "Cache-Control": "no-store" } });
     }
 
+    if (url.pathname === "/api/names/validate" && request.method === "POST") {
+      if (!isSameOrigin(request)) return errorResponse("Origin not allowed", 403);
+      let data;
+      try { data = await request.json(); } catch { return errorResponse("Invalid request", 400); }
+      const name = typeof data.name === "string" ? data.name.trim().slice(0, 24) : "";
+      if (!name) return errorResponse("Enter a display name first.", 400);
+      if (!isNameAllowed(name)) return errorResponse("This name is not allowed", 400);
+      return Response.json({ allowed: true }, { headers: { "Cache-Control": "no-store" } });
+    }
+
     if (url.pathname === "/api/rooms/check-name" && request.method === "POST") {
       if (!isSameOrigin(request)) return errorResponse("Origin not allowed", 403);
       let data;
-      try {
-        data = await request.json();
-      } catch {
-        return errorResponse("Invalid request", 400);
-      }
+      try { data = await request.json(); } catch { return errorResponse("Invalid request", 400); }
       const code = typeof data.code === "string" ? data.code.toUpperCase() : "";
       const name = typeof data.name === "string" ? data.name.trim().slice(0, 24) : "";
       if (!/^[A-Z2-9]{4}$/.test(code) || !name) return errorResponse("Invalid room code or name", 400);
@@ -125,7 +165,6 @@ export class ChatRoom extends DurableObject {
     const [client, server] = Object.values(new WebSocketPair());
     this.ctx.acceptWebSocket(server);
     server.serializeAttachment({ name, lastMessageAt: 0 });
-
     const history = (await this.ctx.storage.get("messages")) || [];
     server.send(JSON.stringify({ type: "history", messages: Array.isArray(history) ? history.slice(-maxHistory) : [] }));
     this.broadcast({ type: "system", text: name + " joined the room" });
@@ -135,7 +174,6 @@ export class ChatRoom extends DurableObject {
 
   async webSocketMessage(ws, message) {
     if (typeof message !== "string" || message.length > 2000) return;
-
     try {
       const data = JSON.parse(message);
       const attachment = ws.deserializeAttachment() || {};
@@ -149,7 +187,6 @@ export class ChatRoom extends DurableObject {
       const now = Date.now();
       if (now - (attachment.lastMessageAt || 0) < messageCooldownMs) return;
       ws.serializeAttachment({ name: attachment.name || "Guest", lastMessageAt: now });
-
       const entry = { name: attachment.name || "Guest", text, time: now };
       const storedHistory = await this.ctx.storage.get("messages");
       const history = Array.isArray(storedHistory) ? storedHistory : [];
@@ -183,11 +220,7 @@ export class ChatRoom extends DurableObject {
     const message = JSON.stringify(data);
     for (const client of this.ctx.getWebSockets()) {
       if (client.readyState === WebSocket.OPEN) {
-        try {
-          client.send(message);
-        } catch {
-          // A closing socket should not prevent delivery to the rest of the room.
-        }
+        try { client.send(message); } catch { /* Ignore a socket while it closes. */ }
       }
     }
   }
